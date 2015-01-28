@@ -87,11 +87,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\GameManager.cpp" />
+    <ClCompile Include="RenderEngine\Renderer.cpp" />
+    <ClCompile Include="RenderEngine\Loader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderEngine\RawModel.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameManager.h" />
+    <ClInclude Include="RenderEngine\Renderer.h" />
+    <ClInclude Include="RenderEngine\Loader.h" />
+    <ClInclude Include="RenderEngine\RawModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

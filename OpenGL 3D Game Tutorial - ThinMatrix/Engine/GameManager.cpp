@@ -1,6 +1,9 @@
 #include <iostream>
 #include <GL\glew.h>
 #include "GameManager.h"
+#include "../RenderEngine/Loader.h"
+#include "../RenderEngine/Renderer.h"
+#include "../RenderEngine/RawModel.h"
 
 GameManager::GameManager()
 {
@@ -46,9 +49,28 @@ GameManager::~GameManager()
 void GameManager::Start()
 {
 	std::cout << "Game loop is now running" << std::endl;
+
+	Loader loader;
+	Renderer renderer;
+
+	float vertices[] = {
+		-0.5f,  0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+
+		 0.5f, -0.5f, 0.0f,
+		 0.5f,  0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f
+	};
+
+	RawModel model = loader.LoadToVAO(vertices, sizeof(vertices) / sizeof(vertices[0]));
+
 	// Start the game loop
 	while (displayManager->IsWindowOpen())
 	{
+		renderer.Prepare();
+		renderer.Render(&model);
+
 		displayManager->UpdateDisplay();
 	}
 }
