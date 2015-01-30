@@ -14,8 +14,8 @@ public:
 	RawModel LoadToVAO(float vertices[], int indices[], int vertCount, int indCount);
 	void UnbindVAO();
 private:
-	std::vector<GLuint> vaos;
-	std::vector<GLuint> vbos;
+	std::vector<GLuint> m_vaos;
+	std::vector<GLuint> m_vbos;
 	GLuint CreateVAO();
 	void StoreDataInAttributeList(GLuint attribNumber, float data[], int& count);
 	void BindIndicesBuffer(int indices[], int& count);

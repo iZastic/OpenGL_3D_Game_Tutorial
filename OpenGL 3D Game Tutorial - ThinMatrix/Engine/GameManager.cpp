@@ -4,6 +4,7 @@
 #include "../RenderEngine/Loader.h"
 #include "../RenderEngine/Renderer.h"
 #include "../RenderEngine/RawModel.h"
+#include "../Shaders/StaticShader.h"
 
 GameManager::GameManager()
 {
@@ -18,7 +19,7 @@ GameManager::GameManager()
 		glfwWindowHint(GLFW_OPENGL_CORE_PROFILE, GL_TRUE);
 
 		// Create the display manager (pointers must be deleted)
-		displayManager = new DisplayManager(1280, 720, "ThinMatrix OpenGL Game");
+		m_displayManager = new DisplayManager(1280, 720, "ThinMatrix OpenGL Game");
 
 		// Initialize glew using experimental(new)
 		glewExperimental = true;
@@ -41,7 +42,7 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-	delete displayManager;
+	delete m_displayManager;
 	glfwTerminate();
 }
 
@@ -52,6 +53,8 @@ void GameManager::Start()
 
 	Loader loader;
 	Renderer renderer;
+
+	StaticShader staticShader("basicShader");
 
 	float vertices[] = {
 		-0.5f,  0.5f, 0.0f,
@@ -68,11 +71,13 @@ void GameManager::Start()
 	RawModel model = loader.LoadToVAO(vertices, indices, sizeof(vertices) / sizeof(vertices[0]), sizeof(indices) / sizeof(indices[0]));
 
 	// Start the game loop
-	while (displayManager->IsWindowOpen())
+	while (m_displayManager->IsWindowOpen())
 	{
 		renderer.Prepare();
+		staticShader.Use();
 		renderer.Render(&model);
+		staticShader.UnUse();
 
-		displayManager->UpdateDisplay();
+		m_displayManager->UpdateDisplay();
 	}
 }

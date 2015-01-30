@@ -3,23 +3,23 @@
 
 Loader::Loader()
 {
-	vaos.clear();
-	vbos.clear();
+	m_vaos.clear();
+	m_vbos.clear();
 }
 
 
 Loader::~Loader()
 {
-	while (vbos.size() > 0)
+	while (m_vbos.size() > 0)
 	{
-		glDeleteBuffers(1, &vbos.back());
-		vbos.pop_back();
+		glDeleteBuffers(1, &m_vbos.back());
+		m_vbos.pop_back();
 	}
 
-	while (vaos.size() > 0)
+	while (m_vaos.size() > 0)
 	{
-		glDeleteVertexArrays(1, &vaos.back());
-		vaos.pop_back();
+		glDeleteVertexArrays(1, &m_vaos.back());
+		m_vaos.pop_back();
 	}
 }
 
@@ -48,7 +48,7 @@ GLuint Loader::CreateVAO()
 	// Create a new VAO
 	glGenVertexArrays(1, &vaoID);
 	// Store the vao in the list
-	vaos.push_back(vaoID);
+	m_vaos.push_back(vaoID);
 	// Bind the VAO to use it
 	glBindVertexArray(vaoID);
 	return vaoID;
@@ -61,7 +61,7 @@ void Loader::StoreDataInAttributeList(GLuint attribNumber, float data[], int& co
 	// Create a new buffer
 	glGenBuffers(1, &vboID);
 	// Store the buffer in the list
-	vbos.push_back(vboID);
+	m_vbos.push_back(vboID);
 	// Bind the buffer to use it
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 	// Store the data in the buffer

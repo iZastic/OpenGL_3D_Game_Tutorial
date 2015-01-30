@@ -92,6 +92,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderEngine\RawModel.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
+    <ClCompile Include="Shaders\ShaderProgram.cpp" />
+    <ClCompile Include="Shaders\StaticShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameManager.h" />
@@ -99,6 +101,8 @@
     <ClInclude Include="RenderEngine\Loader.h" />
     <ClInclude Include="RenderEngine\RawModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />
+    <ClInclude Include="Shaders\ShaderProgram.h" />
+    <ClInclude Include="Shaders\StaticShader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
