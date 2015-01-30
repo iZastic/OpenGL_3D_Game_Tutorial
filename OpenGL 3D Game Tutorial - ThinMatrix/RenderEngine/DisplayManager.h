@@ -7,7 +7,7 @@
 class DisplayManager
 {
 public:
-	DisplayManager(int width = 800, int height = 600, const std::string& title = "OpenGL Window");
+	DisplayManager(int width, int height, const std::string& title);
 	virtual ~DisplayManager();
 
 	bool IsWindowOpen();

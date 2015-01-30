@@ -25,7 +25,8 @@ void Renderer::Render(RawModel* model)
 	glEnableVertexAttribArray(0);
 
 	// Draw the model
-	glDrawArrays(GL_TRIANGLES, 0, model->GetVertexCount());
+	//glDrawArrays(GL_TRIANGLES, 0, model->GetVertexCount());
+	glDrawElements(GL_TRIANGLES, model->GetVertexCount(), GL_UNSIGNED_INT, 0);
 
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);

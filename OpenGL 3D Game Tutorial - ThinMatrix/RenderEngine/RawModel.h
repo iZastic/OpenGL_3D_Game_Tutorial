@@ -6,7 +6,7 @@
 class RawModel
 {
 public:
-	RawModel(GLuint vaoID, int vertexCount);
+	RawModel(GLuint& vaoID, int& vertexCount);
 	virtual ~RawModel();
 
 	GLuint GetVaoID();
