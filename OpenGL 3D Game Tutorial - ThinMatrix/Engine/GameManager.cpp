@@ -3,7 +3,9 @@
 #include "GameManager.h"
 #include "../RenderEngine/Loader.h"
 #include "../RenderEngine/Renderer.h"
-#include "../RenderEngine/RawModel.h"
+#include "../Models/RawModel.h"
+#include "../Models/TexturedModel.h"
+#include "../Textures/ModelTexture.h"
 #include "../Shaders/StaticShader.h"
 
 GameManager::GameManager()
@@ -42,6 +44,7 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
+	// Delete the display and clean up GLFW
 	delete m_displayManager;
 	glfwTerminate();
 }
@@ -56,6 +59,7 @@ void GameManager::Start()
 
 	StaticShader staticShader("basicShader");
 
+	// START temporary model data
 	float vertices[] = {
 		-0.5f,  0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
@@ -68,14 +72,27 @@ void GameManager::Start()
 		3, 1, 2
 	};
 
-	RawModel model = loader.LoadToVAO(vertices, indices, sizeof(vertices) / sizeof(vertices[0]), sizeof(indices) / sizeof(indices[0]));
+	float texCoords[] = {
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0
+	};
+
+	RawModel model = loader.LoadToVAO(vertices, indices, texCoords,
+		sizeof(vertices) / sizeof(vertices[0]),
+		sizeof(indices) / sizeof(indices[0]),
+		sizeof(texCoords) / sizeof(texCoords[0]));
+	ModelTexture texture(loader.LoadTexture("image"));
+	TexturedModel texturedModel(model, texture);
+	// END temporary model data
 
 	// Start the game loop
 	while (m_displayManager->IsWindowOpen())
 	{
 		renderer.Prepare();
 		staticShader.Use();
-		renderer.Render(&model);
+		renderer.Render(&texturedModel);
 		staticShader.UnUse();
 
 		m_displayManager->UpdateDisplay();

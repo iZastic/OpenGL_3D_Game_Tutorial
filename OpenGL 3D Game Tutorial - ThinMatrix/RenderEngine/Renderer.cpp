@@ -19,15 +19,24 @@ void Renderer::Prepare()
 }
 
 
-void Renderer::Render(RawModel* model)
+void Renderer::Render(TexturedModel* texturedModel)
 {
-	glBindVertexArray(model->GetVaoID());
+	// Get the RawModel from the textured model
+	RawModel model = texturedModel->GetRawModel();
+	// Bind the models VAO
+	glBindVertexArray(model.GetVaoID());
+	// Enable the attrib arrays
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 
+	// Activate an OpenGL texture and tell it where the texture is
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturedModel->GetModelTexture().GetTextureID());
 	// Draw the model
-	//glDrawArrays(GL_TRIANGLES, 0, model->GetVertexCount());
-	glDrawElements(GL_TRIANGLES, model->GetVertexCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, model.GetVertexCount(), GL_UNSIGNED_INT, 0);
 
+	// Disable the attrib arrays
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	glBindVertexArray(0);
 }

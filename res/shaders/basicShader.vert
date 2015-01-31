@@ -1,12 +1,13 @@
 #version 330
 
 in vec3 position;
+in vec2 texCoords;
 
-out vec3 color;
+out vec2 textureCoords;
 
 void main()
 {
 	gl_Position = vec4(position, 1.0);
 
-	color = vec3(position.x + 0.5, 1.0, position.y + 0.5);
+	textureCoords = texCoords;
 }

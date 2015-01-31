@@ -87,19 +87,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\GameManager.cpp" />
+    <ClCompile Include="Models\TexturedModel.cpp" />
+    <ClCompile Include="Textures\ModelTexture.cpp" />
     <ClCompile Include="RenderEngine\Renderer.cpp" />
     <ClCompile Include="RenderEngine\Loader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="RenderEngine\RawModel.cpp" />
+    <ClCompile Include="Models\RawModel.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
     <ClCompile Include="Shaders\ShaderProgram.cpp" />
     <ClCompile Include="Shaders\StaticShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameManager.h" />
+    <ClInclude Include="Models\TexturedModel.h" />
+    <ClInclude Include="Textures\ModelTexture.h" />
     <ClInclude Include="RenderEngine\Renderer.h" />
     <ClInclude Include="RenderEngine\Loader.h" />
-    <ClInclude Include="RenderEngine\RawModel.h" />
+    <ClInclude Include="Models\RawModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />
     <ClInclude Include="Shaders\ShaderProgram.h" />
     <ClInclude Include="Shaders\StaticShader.h" />
