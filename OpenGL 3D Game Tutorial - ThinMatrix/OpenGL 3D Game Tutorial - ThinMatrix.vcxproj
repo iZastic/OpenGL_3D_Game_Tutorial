@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\GameManager.cpp" />
+    <ClCompile Include="Toolbox\Maths.cpp" />
     <ClCompile Include="Models\TexturedModel.cpp" />
     <ClCompile Include="Textures\ModelTexture.cpp" />
     <ClCompile Include="RenderEngine\Renderer.cpp" />
@@ -99,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameManager.h" />
+    <ClInclude Include="Toolbox\Maths.h" />
     <ClInclude Include="Models\TexturedModel.h" />
     <ClInclude Include="Textures\ModelTexture.h" />
     <ClInclude Include="RenderEngine\Renderer.h" />
