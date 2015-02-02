@@ -16,3 +16,6 @@ External libraries I'll be using are:
 This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channel.
 
 [thebennybox](https://www.youtube.com/user/thebennybox) also has good tutorials. Many of these tutorials were used to convert this to C++
+
+### Current Screenshot ###
+![current screenshot](http://i60.tinypic.com/2rgfc47.png)
