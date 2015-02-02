@@ -81,12 +81,6 @@ GLuint Loader::LoadTexture(const std::string& fileName)
 }
 
 
-void Loader::UnbindVAO()
-{
-	glBindVertexArray(0);
-}
-
-
 GLuint Loader::CreateVAO()
 {
 	GLuint vaoID;

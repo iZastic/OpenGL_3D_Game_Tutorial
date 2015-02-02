@@ -12,8 +12,10 @@ public:
 
 	bool IsWindowOpen();
 	void UpdateDisplay();
+	float& GetAspect();
 private:
 	GLFWwindow* m_window;
+	float m_aspect;
 };
 
 #endif // DISPLAYMANAGER_H

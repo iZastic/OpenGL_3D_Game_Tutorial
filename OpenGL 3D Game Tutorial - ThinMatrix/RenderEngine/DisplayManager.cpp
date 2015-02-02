@@ -21,6 +21,8 @@ DisplayManager::DisplayManager(int width, int height, const std::string& title)
 	{
 		std::cerr << "ERROR: Failed to create window" << std::endl;
 	}
+
+	m_aspect = (float)width / (float)height;
 }
 
 
@@ -42,4 +44,10 @@ void DisplayManager::UpdateDisplay()
 	glfwPollEvents();
 	// Tell GLFW to swap buffers
 	glfwSwapBuffers(m_window);
+}
+
+
+float& DisplayManager::GetAspect()
+{
+	return m_aspect;
 }

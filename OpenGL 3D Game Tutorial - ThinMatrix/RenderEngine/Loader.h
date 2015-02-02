@@ -1,10 +1,10 @@
 #ifndef LOADER_H
 #define LOADER_H
 
-#include "../Models/RawModel.h"
-#include <GL\glew.h>
 #include <vector>
 #include <string>
+#include <GL\glew.h>
+#include "../Models/RawModel.h"
 
 class Loader
 {
@@ -14,7 +14,7 @@ public:
 
 	RawModel LoadToVAO(float vertices[], int indices[], float texCoords[], int vertCount, int indCount, int texCount);
 	GLuint LoadTexture(const std::string& fileName);
-	void UnbindVAO();
+	inline void UnbindVAO() { glBindVertexArray(0); }
 private:
 	std::vector<GLuint> m_vaos;
 	std::vector<GLuint> m_vbos;

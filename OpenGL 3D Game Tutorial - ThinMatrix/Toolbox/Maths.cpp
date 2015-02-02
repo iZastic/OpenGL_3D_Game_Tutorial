@@ -1,18 +1,7 @@
 #include "Maths.h"
 #include <glm\gtx\transform.hpp>
 
-Maths::Maths()
-{
-}
-
-
-Maths::~Maths()
-{
-}
-
-
-
-glm::mat4 Maths::CreateTransformMatrix(glm::vec3 translation, glm::vec3 rotation, glm::vec3 scale)
+glm::mat4 Maths::CreateTransformMatrix(glm::vec3& translation, glm::vec3& rotation, glm::vec3& scale)
 {
 	// Create transformation matrix
 	glm::mat4 transMatrix = glm::translate(translation);
@@ -26,4 +15,10 @@ glm::mat4 Maths::CreateTransformMatrix(glm::vec3 translation, glm::vec3 rotation
 
 	// Return total transform matrix
 	return transMatrix * rotMatrix * scaleMatrix;
+}
+
+
+glm::mat4 Maths::CreateViewMatrix(Camera& camera)
+{
+	return glm::lookAt(camera.GetPosition(), camera.GetPosition() + glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 }

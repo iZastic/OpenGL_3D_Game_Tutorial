@@ -10,15 +10,3 @@ RawModel::RawModel(GLuint& vaoID, int& vertexCount)
 RawModel::~RawModel()
 {
 }
-
-
-GLuint RawModel::GetVaoID()
-{
-	return m_vaoID;
-}
-
-
-int RawModel::GetVertexCount()
-{
-	return m_vertexCount;
-}

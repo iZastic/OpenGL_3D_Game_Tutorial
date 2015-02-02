@@ -9,8 +9,8 @@ public:
 	RawModel(GLuint& vaoID, int& vertexCount);
 	virtual ~RawModel();
 
-	GLuint GetVaoID();
-	int GetVertexCount();
+	inline GLuint GetVaoID() { return m_vaoID; }
+	inline int GetVertexCount() { return m_vertexCount; }
 private:
 	GLuint m_vaoID;
 	int m_vertexCount;

@@ -7,11 +7,11 @@
 class TexturedModel
 {
 public:
-	TexturedModel(RawModel model, ModelTexture texture);
+	TexturedModel(RawModel& model, ModelTexture& texture);
 	virtual ~TexturedModel();
 
-	RawModel GetRawModel();
-	ModelTexture GetModelTexture();
+	inline RawModel GetRawModel() { return m_rawModel; }
+	inline ModelTexture GetModelTexture() { return m_texture; }
 private:
 	RawModel m_rawModel;
 	ModelTexture m_texture;

@@ -10,10 +10,3 @@ ModelTexture::ModelTexture(GLuint id)
 ModelTexture::~ModelTexture()
 {
 }
-
-
-
-GLuint ModelTexture::GetTextureID()
-{
-	return m_textureID;
-}
