@@ -5,7 +5,7 @@ I am trying to learn C++ with OpenGL so I decided to convert the ThinMatrix tuto
 
 If you have any constructive criticism or changes in code that would make this better I encourage it.
 
-Keep in mind that I am learning C++ so there might be code that should be different. But, it does compile and work.
+After you compile make sure you copy the .dll files in the lib folder to the folder that contains your .exe file.
 
 External libraries I'll be using are:
 - [GLEW](http://glew.sourceforge.net/)
@@ -16,3 +16,6 @@ External libraries I'll be using are:
 This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channel.
 
 [thebennybox](https://www.youtube.com/user/thebennybox) also has good tutorials. Many of these tutorials were used to convert this to C++
+
+### Current Screenshot ###
+![current screenshot](http://i62.tinypic.com/admhqp.jpg)
