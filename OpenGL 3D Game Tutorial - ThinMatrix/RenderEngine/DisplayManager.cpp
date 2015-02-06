@@ -40,10 +40,10 @@ bool DisplayManager::IsWindowOpen()
 
 void DisplayManager::UpdateDisplay()
 {
-	// Tell GLFW to get window events
-	glfwPollEvents();
 	// Tell GLFW to swap buffers
 	glfwSwapBuffers(m_window);
+	// Tell GLFW to get window events
+	glfwPollEvents();
 }
 
 

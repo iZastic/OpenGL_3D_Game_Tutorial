@@ -7,6 +7,15 @@
 
 Renderer::Renderer(StaticShader& shader, float& aspect)
 {
+	// Don't draw faces we can't see
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	// Tell OpenGL to test for depth
+	glEnable(GL_DEPTH_TEST);
+	// Set clear color and clear the screen
+	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+
+
 	// Create the projection matrix using GLM
 	m_projectionMatrix = glm::perspective(m_FOV, aspect, m_NEAR_PLANE, m_FAR_PLANE);
 	// Load the projection matrix into the shader
@@ -23,10 +32,6 @@ Renderer::~Renderer()
 
 void Renderer::Prepare()
 {
-	// Tell OpenGL to test for depth
-	glEnable(GL_DEPTH_TEST);
-	// Set clear color and clear the screen
-	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
