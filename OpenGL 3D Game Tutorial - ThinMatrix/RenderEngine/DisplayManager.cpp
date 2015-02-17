@@ -3,8 +3,9 @@
 
 DisplayManager::DisplayManager(int width, int height, const std::string& title)
 {
+	m_title = title;
 	// Create OpenGL window using GLFW
-	m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	m_window = glfwCreateWindow(width, height, m_title.c_str(), NULL, NULL);
 	// Check if window was created
 	if (m_window != NULL)
 	{
@@ -13,7 +14,6 @@ DisplayManager::DisplayManager(int width, int height, const std::string& title)
 		glfwMakeContextCurrent(m_window);
 		// Set OpenGL viewport to full size of the window
 		glViewport(0, 0, width, height);
-
 		// Enable vertical sync
 		glfwSwapInterval(1);
 	}
@@ -50,4 +50,36 @@ void DisplayManager::UpdateDisplay()
 float& DisplayManager::GetAspect()
 {
 	return m_aspect;
+}
+
+void DisplayManager::ShowFPS()
+{
+	// Static variables are only initialized once ever
+	// Used for the size of the average array
+	const static int SIZE = 500;
+	// Array used to store every frames render time
+	static double avgList[SIZE] = { 0.0 };
+	// Variables to computer frame render time
+	static double previous = 0.0;
+	double now = glfwGetTime();
+	double average = 0.0;
+
+	// Move every value in the list forward, value position 1 is now in position 0
+	for (unsigned int i = 0; i < SIZE - 1; i++)
+	{
+		avgList[i] = avgList[i + 1];
+		average += avgList[i];
+	}
+	// Store the new time in the last slot
+	avgList[SIZE - 1] = now - previous;
+	// Add the new time to the average
+	average += avgList[SIZE - 1];
+	// Divide average my the array size to get the average time
+	average /= SIZE;
+
+	// Update the title with the FPS
+	glfwSetWindowTitle(m_window, (m_title + " | FPS: " + std::to_string(1.0f / average)).c_str());
+
+	// Store the current time
+	previous = now;
 }

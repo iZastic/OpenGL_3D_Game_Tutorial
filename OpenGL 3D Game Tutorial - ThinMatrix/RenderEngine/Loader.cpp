@@ -37,7 +37,7 @@ Loader::~Loader()
 }
 
 
-RawModel Loader::LoadToVAO(float vertices[], int indices[], float texCoords[], int vertCount, int indCount, int texCount)
+RawModel Loader::LoadToVAO(float* vertices, char32_t* indices, float* texCoords, int vertCount, int indCount, int texCount)
 {
 	// create a new VAO
 	GLuint vaoID = CreateVAO();
@@ -46,7 +46,7 @@ RawModel Loader::LoadToVAO(float vertices[], int indices[], float texCoords[], i
 	StoreDataInAttributeList(0, 3, vertices, vertCount);
 	StoreDataInAttributeList(1, 2, texCoords, texCount);
 	UnbindVAO();
-	return RawModel(vaoID, vertCount);
+	return RawModel(vaoID, indCount);
 }
 
 
@@ -67,6 +67,10 @@ GLuint Loader::LoadTexture(const std::string& fileName)
 	// How OpenGL will fill an area that's to big or to small
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	// Tell OpenGL to clamp textures to the edge (so you don't get transparent gaps)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	// Store the OpenGL texture data
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
@@ -94,7 +98,7 @@ GLuint Loader::CreateVAO()
 }
 
 
-void Loader::StoreDataInAttributeList(GLuint attribNumber, int size, float data[], int& count)
+void Loader::StoreDataInAttributeList(GLuint attribNumber, int size, float* data, int& count)
 {
 	GLuint vboID;
 	// Create a new buffer
@@ -104,18 +108,21 @@ void Loader::StoreDataInAttributeList(GLuint attribNumber, int size, float data[
 	// Bind the buffer to use it
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 	// Store the data in the buffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(data) * count, data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * count, data, GL_STATIC_DRAW);
 	// Tell OpenGL how and where to store this VBO in the VAO
 	glVertexAttribPointer(attribNumber, size, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
 
 
-void Loader::BindIndicesBuffer(int indices[], int& count)
+void Loader::BindIndicesBuffer(char32_t* indices, int& count)
 {
 	GLuint vboID;
 	// Generate a buffer and bind it for use
 	glGenBuffers(1, &vboID);
+	// Store the buffer in the list
+	m_vbos.push_back(vboID);
+	// Bind the buffer to use it
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
 	// Store the indices in the buffer
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices) * count, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(char32_t) * count, indices, GL_STATIC_DRAW);
 }

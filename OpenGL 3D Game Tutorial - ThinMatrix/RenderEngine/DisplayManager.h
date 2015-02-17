@@ -13,9 +13,11 @@ public:
 	bool IsWindowOpen();
 	void UpdateDisplay();
 	float& GetAspect();
+	void ShowFPS();
 private:
 	GLFWwindow* m_window;
 	float m_aspect;
+	std::string m_title;
 };
 
 #endif // DISPLAYMANAGER_H

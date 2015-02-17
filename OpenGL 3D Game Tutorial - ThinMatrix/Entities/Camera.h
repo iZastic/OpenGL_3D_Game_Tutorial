@@ -20,6 +20,7 @@ private:
 	float m_pitch;
 	float m_yaw;
 	float m_roll;
+	bool m_wireframe = false;
 };
 
 #endif // CAMERA_H

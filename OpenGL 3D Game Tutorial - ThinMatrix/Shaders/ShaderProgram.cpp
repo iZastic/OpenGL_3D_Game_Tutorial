@@ -52,7 +52,7 @@ GLuint ShaderProgram::LoadShader(const std::string& fileName, GLenum type)
 {
 	// Open the file
 	std::ifstream file;
-	file.open((fileName).c_str());
+	file.open(fileName.c_str());
 
 	// Create temp variables
 	std::string source, line;
@@ -60,11 +60,8 @@ GLuint ShaderProgram::LoadShader(const std::string& fileName, GLenum type)
 	if (file.is_open())
 	{
 		// Load file to string
-		while (file.good())
-		{
-			getline(file, line);
+		while (std::getline(file, line))
 			source.append(line + "\n");
-		}
 	}
 	else
 	{
@@ -131,7 +128,7 @@ void ShaderProgram::LoadVector(GLuint& location, glm::vec3& value)
 void ShaderProgram::LoadBool(GLuint& location, bool& value)
 {
 	// if value == true load 1 else 0
-	glUniform1f(location, value ? 1 : 0);
+	glUniform1f(location, value ? 1.0f : 0.0f);
 }
 
 

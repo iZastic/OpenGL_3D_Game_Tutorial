@@ -9,6 +9,7 @@
 #include "../Shaders/StaticShader.h"
 #include "../Entities/Entity.h"
 #include "../Entities/Camera.h"
+#include "../RenderEngine/OBJLoader.h"
 
 GameManager::GameManager()
 {
@@ -51,7 +52,6 @@ GameManager::~GameManager()
 	glfwTerminate();
 }
 
-
 void GameManager::Start()
 {
 	std::cout << "Game loop is now running" << std::endl;
@@ -63,98 +63,22 @@ void GameManager::Start()
 	Renderer renderer(staticShader, m_displayManager->GetAspect());
 
 	// START temporary model data
-	float vertices[] = {
-		// Front face
-		-1.0, -1.0, 1.0,
-		1.0, -1.0, 1.0,
-		1.0, 1.0, 1.0,
-		-1.0, 1.0, 1.0,
-
-		// Back face
-		-1.0, -1.0, -1.0,
-		-1.0, 1.0, -1.0,
-		1.0, 1.0, -1.0,
-		1.0, -1.0, -1.0,
-
-		// Top face
-		-1.0, 1.0, -1.0,
-		-1.0, 1.0, 1.0,
-		1.0, 1.0, 1.0,
-		1.0, 1.0, -1.0,
-
-		// Bottom face
-		-1.0, -1.0, -1.0,
-		1.0, -1.0, -1.0,
-		1.0, -1.0, 1.0,
-		-1.0, -1.0, 1.0,
-
-		// Right face
-		1.0, -1.0, -1.0,
-		1.0, 1.0, -1.0,
-		1.0, 1.0, 1.0,
-		1.0, -1.0, 1.0,
-
-		// Left face
-		-1.0, -1.0, -1.0,
-		-1.0, -1.0, 1.0,
-		-1.0, 1.0, 1.0,
-		-1.0, 1.0, -1.0
-	};
-
-	int indices[] = {
-		0, 1, 2, 0, 2, 3,    // front
-		4, 5, 6, 4, 6, 7,    // back
-		8, 9, 10, 8, 10, 11,   // top
-		12, 13, 14, 12, 14, 15,   // bottom
-		16, 17, 18, 16, 18, 19,   // right
-		20, 21, 22, 20, 22, 23    // left
-	};
-
-	float texCoords[] = {
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0
-	};
-
-	RawModel model = loader.LoadToVAO(vertices, indices, texCoords,
-		sizeof(vertices) / sizeof(vertices[0]),
-		sizeof(indices) / sizeof(indices[0]),
-		sizeof(texCoords) / sizeof(texCoords[0]));
-	ModelTexture texture(loader.LoadTexture("image"));
+	std::string object = "box";
+	RawModel model = OBJLoader::LoadObjModel(object, loader);
+	ModelTexture texture(loader.LoadTexture(object));
 	TexturedModel texturedModel(model, texture);
 
-	Entity entity(texturedModel, glm::vec3(0, 0, -5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(0, 0, -10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	// END temporary model data
-
+	
 	Camera camera;
 
-	float x = -0.001f;
+	float x = 0.002f;
 	// Start the game loop
 	while (m_displayManager->IsWindowOpen())
 	{
 		// Rotate cube
-		entity.ChangeRotation(glm::vec3(0.001f, 0.001f, 0.001f));
+		entity.ChangeRotation(glm::vec3(x, x, x));
 		camera.Move();
 		renderer.Prepare();
 		staticShader.Use();
@@ -163,5 +87,6 @@ void GameManager::Start()
 		staticShader.UnUse();
 
 		m_displayManager->UpdateDisplay();
+		m_displayManager->ShowFPS();
 	}
 }

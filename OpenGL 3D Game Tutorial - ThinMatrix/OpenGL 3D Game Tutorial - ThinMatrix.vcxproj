@@ -60,6 +60,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;glfw3.lib;glfw3dll.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -83,12 +85,15 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;glfw3.lib;glfw3dll.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Engine\GameManager.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
+    <ClCompile Include="RenderEngine\OBJLoader.cpp" />
     <ClCompile Include="Toolbox\Maths.cpp" />
     <ClCompile Include="Models\TexturedModel.cpp" />
     <ClCompile Include="Textures\ModelTexture.cpp" />
@@ -104,6 +109,7 @@
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Engine\GameManager.h" />
     <ClInclude Include="Entities\Entity.h" />
+    <ClInclude Include="RenderEngine\OBJLoader.h" />
     <ClInclude Include="Toolbox\Maths.h" />
     <ClInclude Include="Models\TexturedModel.h" />
     <ClInclude Include="Textures\ModelTexture.h" />
