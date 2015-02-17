@@ -13,7 +13,7 @@ RawModel OBJLoader::LoadObjModel(const std::string& fileName, Loader& loader)
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> textures;
 	std::vector<glm::vec3> normals;
-	std::vector<char32_t> indices;
+	std::vector<int> indices;
 
 	if (file.is_open())
 	{
@@ -91,7 +91,7 @@ std::vector<std::string> OBJLoader::SplitString(const std::string& string, char 
 }
 
 
-void OBJLoader::ProcessVertices(std::vector<std::string>& vertexDataArray, std::vector<char32_t>& indices, std::vector<glm::vec2>& textures,
+void OBJLoader::ProcessVertices(std::vector<std::string>& vertexDataArray, std::vector<int>& indices, std::vector<glm::vec2>& textures,
 	std::vector<float>& texturesArray, std::vector<glm::vec3>& normals, std::vector<float>& normalsArray)
 {
 	for (unsigned int i = 1; i < 4; i++)

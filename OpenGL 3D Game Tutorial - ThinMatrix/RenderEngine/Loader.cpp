@@ -37,7 +37,7 @@ Loader::~Loader()
 }
 
 
-RawModel Loader::LoadToVAO(float* vertices, char32_t* indices, float* texCoords, int vertCount, int indCount, int texCount)
+RawModel Loader::LoadToVAO(float* vertices, int* indices, float* texCoords, int vertCount, int indCount, int texCount)
 {
 	// create a new VAO
 	GLuint vaoID = CreateVAO();
@@ -114,7 +114,7 @@ void Loader::StoreDataInAttributeList(GLuint attribNumber, int size, float* data
 }
 
 
-void Loader::BindIndicesBuffer(char32_t* indices, int& count)
+void Loader::BindIndicesBuffer(int* indices, int& count)
 {
 	GLuint vboID;
 	// Generate a buffer and bind it for use
