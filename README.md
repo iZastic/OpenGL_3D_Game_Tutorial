@@ -21,10 +21,10 @@ This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channe
 ![current screenshot](http://i61.tinypic.com/ej7sc4.jpg)
 
 ### System Specifications ###
-         System: Samsung 7 series laptop
-             OS: Windows 8.1 Pro x64
-      Processor: Intel Core i7-2675QM 2.20GHz Quad Core
-            RAM: 8 GB
-            HDD: Crucial CT512MX100 SSD
-Graphics Card 1: Intel HD 3000
-Graphics Card 2: ATI Radeon HD 6470M
+          System: Samsung 7 series laptop
+              OS: Windows 8.1 Pro x64
+       Processor: Intel Core i7-2675QM 2.20GHz Quad Core
+             RAM: 8 GB
+             HDD: Crucial CT512MX100 SSD
+ Graphics Card 1: Intel HD 3000
+ Graphics Card 2: ATI Radeon HD 6470M
