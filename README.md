@@ -26,5 +26,5 @@ This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channe
        Processor: Intel Core i7-2675QM 2.20GHz Quad Core
              RAM: 8 GB
              HDD: Crucial CT512MX100 SSD
- Graphics Card 1: Intel HD 3000
- Graphics Card 2: ATI Radeon HD 6470M
+      Graphics 1: Intel HD 3000
+      Graphics 2: ATI Radeon HD 6470M
