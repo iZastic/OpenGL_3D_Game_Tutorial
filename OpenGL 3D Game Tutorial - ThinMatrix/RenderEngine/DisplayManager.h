@@ -7,13 +7,14 @@
 class DisplayManager
 {
 public:
+	DisplayManager();
 	DisplayManager(int width, int height, const std::string& title);
 	virtual ~DisplayManager();
 
 	bool IsWindowOpen();
 	void UpdateDisplay();
 	float& GetAspect();
-	void ShowFPS();
+	void ShowUPS();
 private:
 	GLFWwindow* m_window;
 	float m_aspect;

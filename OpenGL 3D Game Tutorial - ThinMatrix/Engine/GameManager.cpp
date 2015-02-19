@@ -17,11 +17,6 @@ GameManager::GameManager()
 	if (glfwInit())
 	{
 		std::cout << "GLFW initialized successfully" << std::endl;
-		// Set minimum OpenGL version and options
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-		glfwWindowHint(GLFW_OPENGL_CORE_PROFILE, GL_TRUE);
 
 		// Create the display manager (pointers must be deleted)
 		m_displayManager = new DisplayManager(1280, 720, "ThinMatrix OpenGL Game");
@@ -63,12 +58,12 @@ void GameManager::Start()
 	Renderer renderer(staticShader, m_displayManager->GetAspect());
 
 	// START temporary model data
-	std::string object = "box";
+	std::string object = "dragon";
 	RawModel model = OBJLoader::LoadObjModel(object, loader);
 	ModelTexture texture(loader.LoadTexture(object));
 	TexturedModel texturedModel(model, texture);
 
-	Entity entity(texturedModel, glm::vec3(0, 0, -10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(0, -2, -15), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	// END temporary model data
 	
 	Camera camera;
@@ -78,7 +73,7 @@ void GameManager::Start()
 	while (m_displayManager->IsWindowOpen())
 	{
 		// Rotate cube
-		entity.ChangeRotation(glm::vec3(x, x, x));
+		entity.ChangeRotation(glm::vec3(0, x, 0));
 		camera.Move();
 		renderer.Prepare();
 		staticShader.Use();
@@ -87,6 +82,6 @@ void GameManager::Start()
 		staticShader.UnUse();
 
 		m_displayManager->UpdateDisplay();
-		m_displayManager->ShowFPS();
+		m_displayManager->ShowUPS();
 	}
 }

@@ -1,116 +1,97 @@
 #include "OBJLoader.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include <stdio.h>
 
 RawModel OBJLoader::LoadObjModel(const std::string& fileName, Loader& loader)
 {
-	// Open the file
-	std::ifstream file;
-	file.open("../res/models/" + fileName + ".obj");
+	// Open the file as read only
+	FILE* file;
+	if (fopen_s(&file, ("../res/models/" + fileName + ".obj").c_str(), "r") != 0)
+	{
+		printf("Failed to open: %s\n", fileName);
+	}
 
-	std::vector<float> verticesArray, texturesArray, normalsArray;
-	std::vector<glm::vec3> vertices;
+	// Storage variables
+	std::vector<float> vertices, texturesArray, normalsArray;
 	std::vector<glm::vec2> textures;
 	std::vector<glm::vec3> normals;
 	std::vector<int> indices;
 
-	if (file.is_open())
+	char *type, *token, *stop = 0;
+	char line[256];
+	while (fgets(line, 256, file) != NULL)
 	{
-		// Temporary read variable
-		std::string line;
-		std::vector<std::string> lineArray;
-		// Load file and get a line
-		while (std::getline(file, line))
+		token = NULL;
+		type = strtok_s(line, " ", &token);
+		// V is vertex points
+		if (type[0] == 'v' && type[1] == NULL)
 		{
-			// Split the string
-			lineArray = SplitString(line, ' ');
-			// V is vertex points
-			if (lineArray[0] == "v")
-			{
-				// Store a new vertex (stod converts string to double)
-				glm::vec3 vertex(std::stod(lineArray[1]), std::stod(lineArray[2]), std::stod(lineArray[3]));
-				vertices.push_back(vertex);
-			}
-			// VT is vertex texture coordinates
-			else if (lineArray[0] == "vt")
-			{
-				glm::vec2 uv(std::stod(lineArray[1]), std::stod(lineArray[2]));
-				textures.push_back(uv);
-			}
-			else if (lineArray[0] == "vn")
-			{
-				// Store a new vertex (stod converts string to double)
-				glm::vec3 vertex(std::stod(lineArray[1]), std::stod(lineArray[2]), std::stod(lineArray[3]));
-				normals.push_back(vertex);
-			}
-			// F is the faces (indices)
-			else if (lineArray[0] == "f")
-			{
-				if (verticesArray.size() == 0)
-				{
-					// Set the size of the array
-					texturesArray.resize(vertices.size() * 2);
-					normalsArray.resize(vertices.size() * 3);
-				}
-				// Process set of vertex data
-				ProcessVertices(lineArray, indices, textures, texturesArray, normals, normalsArray);
-			}
+			// Store a new vertex
+			vertices.push_back(strtof(token, &stop));
+			token = stop + 1; // Move to the next value
+			vertices.push_back(strtof(token, &stop));
+			token = stop + 1; // Move to the next value
+			vertices.push_back(strtof(token, &stop));
 		}
-		file.close();
+		// VT is vertex texture coordinates
+		else if (type[0] == 'v' && type[1] == 't')
+		{
+			double x = strtod(token, &stop);
+			token = stop + 1; // Move to the next value
+			double y = strtod(token, &stop);
+			// Store a new texture
+			textures.push_back(glm::vec2(x, y));
+		}
+		else if (type[0] == 'v' && type[1] == 'n')
+		{
+			double x = strtod(token, &stop);
+			token = stop + 1; // Move to the next value
+			double y = strtod(token, &stop);
+			token = stop + 1; // Move to the next value
+			double z = strtod(token, &stop);
+			// Store a new normal
+			normals.push_back(glm::vec3(x, y, z));
+		}
+		// F is the index list for faces
+		else if (type[0] == 'f')
+		{
+			if (indices.size() == 0)
+			{
+				// Set the size of the array
+				texturesArray.resize((vertices.size() / 3) * 2);
+				normalsArray.resize(vertices.size());
+			}
+			// Process set of vertex data
+			ProcessVertices(token, indices, textures, texturesArray, normals, normalsArray);
+		}
 	}
-	else
-	{
-		std::cerr << "Unable to load model: " << fileName << std::endl;
-	}
+	fclose(file);
 
-	for (glm::vec3 vertex : vertices)
-	{
-		verticesArray.push_back(vertex.x);
-		verticesArray.push_back(vertex.y);
-		verticesArray.push_back(vertex.z);
-	}
-
-	return loader.LoadToVAO(verticesArray.data(), indices.data(), texturesArray.data(), verticesArray.size(), indices.size(), texturesArray.size());
+	return loader.LoadToVAO(vertices.data(), indices.data(), texturesArray.data(), vertices.size(), indices.size(), texturesArray.size());
 }
 
 
-// This method is used to split strings
-std::vector<std::string> OBJLoader::SplitString(const std::string& string, char delim)
-{
-	// This is a temporary vector
-	std::vector<std::string> stringVector;
-	// Create a stream from the string
-	std::stringstream ss(string);
-	std::string item;
-	// Go through each word in the string
-	while (std::getline(ss, item, delim))
-		stringVector.push_back(item);
-
-	return stringVector;
-}
-
-
-void OBJLoader::ProcessVertices(std::vector<std::string>& vertexDataArray, std::vector<int>& indices, std::vector<glm::vec2>& textures,
+void OBJLoader::ProcessVertices(char* vertexData, std::vector<int>& indices, std::vector<glm::vec2>& textures,
 	std::vector<float>& texturesArray, std::vector<glm::vec3>& normals, std::vector<float>& normalsArray)
 {
-	for (unsigned int i = 1; i < 4; i++)
+	char *stop;
+	int vertexPointer;
+	for (unsigned int i = 0; i < 3; i++)
 	{
-		// Get vertex data from array
-		std::vector<std::string> vertexData;
-		vertexData = SplitString(vertexDataArray[i], '/');
 		// Get and store index
-		int vertexPointer = std::stoi(vertexData[0]) - 1;
+		vertexPointer = strtol(vertexData, &stop, 10) - 1;
 		indices.push_back(vertexPointer);
+		vertexData = stop + 1; // Move to the next value
 		// Get and store texture points
-		glm::vec2 texture = textures.at(std::stoi(vertexData[1]) - 1);
+		glm::vec2 texture = textures[strtol(vertexData, &stop, 10) - 1];
 		texturesArray[vertexPointer * 2] = texture.x;
 		texturesArray[vertexPointer * 2 + 1] = 1 - texture.y;
+		vertexData = stop + 1; // Move to the next value
 		// Get and store normal points
-		glm::vec3 normal = normals.at(std::stoi(vertexData[2]) - 1);
-		normalsArray.at(vertexPointer * 3) = normal.x;
-		normalsArray.at(vertexPointer * 3 + 1) = normal.y;
-		normalsArray.at(vertexPointer * 3 + 2) = normal.z;
+		glm::vec3 normal = normals[strtol(vertexData, &stop, 10) - 1];
+		normalsArray[vertexPointer * 3] = normal.x;
+		normalsArray[vertexPointer * 3 + 1] = normal.y;
+		normalsArray[vertexPointer * 3 + 2] = normal.z;
+		vertexData = stop + 1; // Move to the next value
 	}
 
 }
