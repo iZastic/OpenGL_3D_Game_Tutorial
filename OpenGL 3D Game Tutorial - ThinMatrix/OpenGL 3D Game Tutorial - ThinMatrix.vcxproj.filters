@@ -98,5 +98,8 @@
     <ClInclude Include="RenderEngine\OBJLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entities\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -57,14 +57,16 @@ void GameManager::Start()
 
 	Renderer renderer(staticShader, m_displayManager->GetAspect());
 
-	// START temporary model data
+	// START temporary data
 	std::string object = "dragon";
 	RawModel model = OBJLoader::LoadObjModel(object, loader);
 	ModelTexture texture(loader.LoadTexture(object));
 	TexturedModel texturedModel(model, texture);
 
-	Entity entity(texturedModel, glm::vec3(0, -2, -15), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	// END temporary model data
+	Entity entity(texturedModel, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	
+	Light light(glm::vec3(0, 30, 0), glm::vec3(1, 1, 1));
+	// END temporary data
 	
 	Camera camera;
 
@@ -78,6 +80,7 @@ void GameManager::Start()
 		renderer.Prepare();
 		staticShader.Use();
 		staticShader.LoadViewMatrix(camera);
+		staticShader.LoadLight(light);
 		renderer.Render(entity, staticShader);
 		staticShader.UnUse();
 

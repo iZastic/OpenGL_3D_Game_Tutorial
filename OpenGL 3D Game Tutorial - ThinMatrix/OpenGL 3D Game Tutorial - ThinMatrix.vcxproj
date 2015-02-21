@@ -111,6 +111,7 @@
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Engine\GameManager.h" />
     <ClInclude Include="Entities\Entity.h" />
+    <ClInclude Include="Entities\Light.h" />
     <ClInclude Include="RenderEngine\OBJLoader.h" />
     <ClInclude Include="Toolbox\Maths.h" />
     <ClInclude Include="Models\TexturedModel.h" />

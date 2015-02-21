@@ -46,6 +46,7 @@ void Renderer::Render(Entity& entity, StaticShader& shader)
 	// Enable the attrib arrays
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	// Load the transformation matrix into the shader
 	shader.LoadTransformMatrix(Maths::CreateTransformMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale()));
@@ -59,5 +60,6 @@ void Renderer::Render(Entity& entity, StaticShader& shader)
 	// Disable the attrib arrays
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 	glBindVertexArray(0);
 }

@@ -37,16 +37,18 @@ Loader::~Loader()
 }
 
 
-RawModel Loader::LoadToVAO(float* vertices, int* indices, float* texCoords, int vertCount, int indCount, int texCount)
+RawModel Loader::LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textures, std::vector<glm::vec3> normals, std::vector<int> indices)
 {
 	// create a new VAO
 	GLuint vaoID = CreateVAO();
-	BindIndicesBuffer(indices, indCount);
+	int indicesSize = indices.size();
+	BindIndicesBuffer(indices.data(), indicesSize);
 	// Store the data in attribute lists
-	StoreDataInAttributeList(0, 3, vertices, vertCount);
-	StoreDataInAttributeList(1, 2, texCoords, texCount);
+	StoreDataInAttributeList(0, 3, &vertices[0], vertices.size() * sizeof(glm::vec3));
+	StoreDataInAttributeList(1, 2, &textures[0], textures.size() * sizeof(glm::vec2));
+	StoreDataInAttributeList(2, 3, &normals[0], normals.size() * sizeof(glm::vec3));
 	UnbindVAO();
-	return RawModel(vaoID, indCount);
+	return RawModel(vaoID, indicesSize);
 }
 
 
@@ -98,7 +100,7 @@ GLuint Loader::CreateVAO()
 }
 
 
-void Loader::StoreDataInAttributeList(GLuint attribNumber, int size, float* data, int& count)
+void Loader::StoreDataInAttributeList(GLuint attribNumber, int attribSize, void* data, int dataSize)
 {
 	GLuint vboID;
 	// Create a new buffer
@@ -108,9 +110,9 @@ void Loader::StoreDataInAttributeList(GLuint attribNumber, int size, float* data
 	// Bind the buffer to use it
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 	// Store the data in the buffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * count, data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 	// Tell OpenGL how and where to store this VBO in the VAO
-	glVertexAttribPointer(attribNumber, size, GL_FLOAT, GL_FALSE, 0, nullptr);
+	glVertexAttribPointer(attribNumber, attribSize, GL_FLOAT, GL_FALSE, 0, nullptr);
 }
 
 
@@ -124,5 +126,5 @@ void Loader::BindIndicesBuffer(int* indices, int& count)
 	// Bind the buffer to use it
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
 	// Store the indices in the buffer
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(char32_t) * count, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * count, indices, GL_STATIC_DRAW);
 }
