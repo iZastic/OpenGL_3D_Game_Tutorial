@@ -18,7 +18,7 @@ This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channe
 [thebennybox](https://www.youtube.com/user/thebennybox) also has good tutorials. Many of these tutorials were used to convert this to C++
 
 ### Current Screenshot ###
-![current screenshot](http://i61.tinypic.com/ej7sc4.jpg)
+![current screenshot](https://github.com/iZastic/OpenGL_3D_Game_Tutorial/blob/master/current.png)
 
 ### System Specifications ###
           System: Samsung 7 series laptop
