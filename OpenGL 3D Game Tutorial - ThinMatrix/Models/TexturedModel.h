@@ -7,8 +7,7 @@
 class TexturedModel
 {
 public:
-	TexturedModel(RawModel& model, ModelTexture& texture);
-	virtual ~TexturedModel();
+	TexturedModel(RawModel& model, ModelTexture& texture) : m_rawModel(model), m_texture(texture) {}
 
 	inline RawModel GetRawModel() { return m_rawModel; }
 	inline ModelTexture GetModelTexture() { return m_texture; }

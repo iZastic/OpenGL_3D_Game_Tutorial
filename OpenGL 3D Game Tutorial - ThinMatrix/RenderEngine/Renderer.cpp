@@ -44,12 +44,14 @@ void Renderer::Render(Entity& entity, StaticShader& shader)
 	// Bind the models VAO
 	glBindVertexArray(model.GetVaoID());
 	// Enable the attrib arrays
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+	for (unsigned int i = 0; i < 3; i++)
+		glEnableVertexAttribArray(i);
 
 	// Load the transformation matrix into the shader
 	shader.LoadTransformMatrix(Maths::CreateTransformMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale()));
+	// Load shine from the texture
+	ModelTexture texture = texturedModel.GetModelTexture();
+	shader.LoadShineVariables(texture.GetShineDamper(), texture.GetShine());
 
 	// Activate an OpenGL texture and tell it where the texture is
 	glActiveTexture(GL_TEXTURE0);
@@ -58,8 +60,7 @@ void Renderer::Render(Entity& entity, StaticShader& shader)
 	glDrawElements(GL_TRIANGLES, model.GetVertexCount(), GL_UNSIGNED_INT, 0);
 
 	// Disable the attrib arrays
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
+	for (unsigned int i = 0; i < 3; i++)
+		glDisableVertexAttribArray(i);
 	glBindVertexArray(0);
 }

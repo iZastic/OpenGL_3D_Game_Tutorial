@@ -61,6 +61,8 @@ void GameManager::Start()
 	std::string object = "dragon";
 	RawModel model = OBJLoader::LoadObjModel(object, loader);
 	ModelTexture texture(loader.LoadTexture(object));
+	texture.SetShineDamper(10);
+	texture.SetShine(1);
 	TexturedModel texturedModel(model, texture);
 
 	Entity entity(texturedModel, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));

@@ -94,15 +94,11 @@
   <ItemGroup>
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Engine\GameManager.cpp" />
-    <ClCompile Include="Entities\Entity.cpp" />
     <ClCompile Include="RenderEngine\OBJLoader.cpp" />
     <ClCompile Include="Toolbox\Maths.cpp" />
-    <ClCompile Include="Models\TexturedModel.cpp" />
-    <ClCompile Include="Textures\ModelTexture.cpp" />
     <ClCompile Include="RenderEngine\Renderer.cpp" />
     <ClCompile Include="RenderEngine\Loader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Models\RawModel.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
     <ClCompile Include="Shaders\ShaderProgram.cpp" />
     <ClCompile Include="Shaders\StaticShader.cpp" />

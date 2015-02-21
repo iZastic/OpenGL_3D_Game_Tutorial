@@ -9,6 +9,7 @@ layout(location=2) in vec3 normal;
 out vec2 textureCoords;
 out vec3 surfaceNormal;
 out vec3 toLightVector;
+out vec3 toCameraVector;
 
 // Matricies
 uniform mat4 transformMatrix;
@@ -26,6 +27,8 @@ void main()
 	surfaceNormal = (transformMatrix * vec4(normal, 0.0)).xyz;
 	// Get the vector of the light from the position the object is in the world
 	toLightVector = lightPosition - worldPosition.xyz;
+	// Get the vector to the camera from the position of the object
+	toCameraVector = (inverse(viewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
 
 	// Pass the texture coords to the next shader
 	textureCoords = texCoords;

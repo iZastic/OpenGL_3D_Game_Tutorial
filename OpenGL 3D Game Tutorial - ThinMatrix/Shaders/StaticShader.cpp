@@ -39,6 +39,13 @@ void StaticShader::LoadLight(Light& light)
 }
 
 
+void StaticShader::LoadShineVariables(float shineDamper, float shine)
+{
+	LoadFloat(location_shineDamper, shineDamper);
+	LoadFloat(location_shine, shine);
+}
+
+
 void StaticShader::BindAttributes()
 {
 	BindAttribute(0, "position");
@@ -54,4 +61,6 @@ void StaticShader::GetAllUniformLocations()
 	location_ViewMatrix = GetUniformLocation("viewMatrix");
 	location_lightPosition = GetUniformLocation("lightPosition");
 	location_lightColor = GetUniformLocation("lightColor");
+	location_shineDamper = GetUniformLocation("shineDamper");
+	location_shine = GetUniformLocation("shine");
 }
