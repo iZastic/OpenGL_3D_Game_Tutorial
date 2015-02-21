@@ -2,7 +2,7 @@
 #include <GLFW\glfw3.h>
 
 Camera::Camera()
-	: m_position(glm::vec3(0, 0, 0))
+	: m_position(glm::vec3(0, 5, 0))
 {
 	
 }

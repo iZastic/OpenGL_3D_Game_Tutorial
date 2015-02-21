@@ -65,9 +65,9 @@ void GameManager::Start()
 	texture.SetShine(1);
 	TexturedModel texturedModel(model, texture);
 
-	Entity entity(texturedModel, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(texturedModel, glm::vec3(0, 0, -20), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 	
-	Light light(glm::vec3(0, 30, 0), glm::vec3(1, 1, 1));
+	Light light(glm::vec3(0, 10, 0), glm::vec3(1, 1, 1));
 	// END temporary data
 	
 	Camera camera;

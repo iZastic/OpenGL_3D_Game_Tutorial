@@ -1,8 +1,10 @@
 #include "OBJLoader.h"
 #include <stdio.h>
+#include <time.h>
 
 RawModel OBJLoader::LoadObjModel(const std::string& fileName, Loader& loader)
 {
+	clock_t startTime = clock();
 	// Open the file as read only
 	FILE* file;
 	if (fopen_s(&file, ("../res/models/" + fileName + ".obj").c_str(), "r") != 0)
@@ -67,6 +69,7 @@ RawModel OBJLoader::LoadObjModel(const std::string& fileName, Loader& loader)
 	}
 	fclose(file);
 
+	printf("Load time: %dms\n", clock() - startTime);
 	return loader.LoadToVAO(vertices, tempTextures, tempNormals, indices);
 }
 
@@ -75,16 +78,18 @@ void OBJLoader::ProcessVertices(char* vertexData, std::vector<int>& indices, std
 	std::vector<glm::vec2>& textures, std::vector<glm::vec3>& tempNormals, std::vector<glm::vec3>& normals)
 {
 	char *stop;
+	int vertexPointer;
 	for (unsigned int i = 0; i < 3; i++)
 	{
 		// Get and store index
-		indices.push_back(strtol(vertexData, &stop, 10) - 1);
+		vertexPointer = strtol(vertexData, &stop, 10) - 1;
+		indices.push_back(vertexPointer);
 		vertexData = stop + 1; // Move to the next value
 		// Get and store texture points
-		textures[indices.back()] = tempTextures[strtol(vertexData, &stop, 10) - 1];
+		textures[vertexPointer] = tempTextures[strtol(vertexData, &stop, 10) - 1];
 		vertexData = stop + 1; // Move to the next value
 		// Get and store normal points
-		normals[indices.back()] = tempNormals[strtol(vertexData, &stop, 10) - 1];
+		normals[vertexPointer] = tempNormals[strtol(vertexData, &stop, 10) - 1];
 		vertexData = stop + 1; // Move to the next value
 	}
 }
