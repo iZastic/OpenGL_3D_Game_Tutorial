@@ -40,7 +40,7 @@ RawModel OBJLoader::LoadObjModel(const std::string& fileName, Loader& loader)
 		{
 			x = strtod(token, &stop);
 			token = stop + 1; // Move to the next value
-			y = strtod(token, &stop);
+			y = 1 - strtod(token, &stop);
 			// Store a new texture
 			tempTextures.push_back(glm::vec2(x, y));
 		}
@@ -70,7 +70,7 @@ RawModel OBJLoader::LoadObjModel(const std::string& fileName, Loader& loader)
 	fclose(file);
 
 	printf("Load time: %dms\n", clock() - startTime);
-	return loader.LoadToVAO(vertices, tempTextures, tempNormals, indices);
+	return loader.LoadToVAO(vertices, textures, normals, indices);
 }
 
 
