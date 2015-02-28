@@ -1,7 +1,7 @@
-#include "StaticShader.h"
+#include "BasicShader.h"
 #include "../Toolbox/Maths.h"
 
-StaticShader::StaticShader(const std::string& fileName)
+BasicShader::BasicShader(const std::string& fileName)
 	: ShaderProgram("../res/shaders/" + fileName)
 {
 	BindAttributes();
@@ -9,44 +9,45 @@ StaticShader::StaticShader(const std::string& fileName)
 }
 
 
-StaticShader::~StaticShader()
+BasicShader::~BasicShader()
 {
 }
 
 
-void StaticShader::LoadTransformMatrix(glm::mat4& matrix)
+void BasicShader::LoadTransformMatrix(glm::mat4& matrix)
 {
 	LoadMatrix4(location_TransformMatrix, matrix);
 }
 
 
-void StaticShader::LoadProjectionMatrix(glm::mat4& matrix)
+void BasicShader::LoadProjectionMatrix(glm::mat4& matrix)
 {
 	LoadMatrix4(location_ProjectionMatrix, matrix);
 }
 
 
-void StaticShader::LoadViewMatrix(Camera& camera)
+void BasicShader::LoadViewMatrix(Camera& camera)
 {
 	LoadMatrix4(location_ViewMatrix, Maths::CreateViewMatrix(camera));
 }
 
 
-void StaticShader::LoadLight(Light& light)
+void BasicShader::LoadLight(Light& light, float ambientLight)
 {
 	LoadVector(location_lightPosition, light.GetPosition());
 	LoadVector(location_lightColor, light.GetColor());
+	LoadFloat(location_ambientLight, ambientLight);
 }
 
 
-void StaticShader::LoadShineVariables(float shineDamper, float shine)
+void BasicShader::LoadShineVariables(float shineDamper, float shine)
 {
 	LoadFloat(location_shineDamper, shineDamper);
 	LoadFloat(location_shine, shine);
 }
 
 
-void StaticShader::BindAttributes()
+void BasicShader::BindAttributes()
 {
 	BindAttribute(0, "position");
 	BindAttribute(1, "texCoords");
@@ -54,13 +55,14 @@ void StaticShader::BindAttributes()
 }
 
 
-void StaticShader::GetAllUniformLocations()
+void BasicShader::GetAllUniformLocations()
 {
 	location_TransformMatrix = GetUniformLocation("transformMatrix");
 	location_ProjectionMatrix = GetUniformLocation("projectionMatrix");
 	location_ViewMatrix = GetUniformLocation("viewMatrix");
 	location_lightPosition = GetUniformLocation("lightPosition");
 	location_lightColor = GetUniformLocation("lightColor");
+	location_ambientLight = GetUniformLocation("ambientLight");
 	location_shineDamper = GetUniformLocation("shineDamper");
 	location_shine = GetUniformLocation("shine");
 }

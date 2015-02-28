@@ -6,16 +6,16 @@
 #include "../Entities/Camera.h"
 #include "../Entities/Light.h"
 
-class StaticShader : public ShaderProgram
+class BasicShader : public ShaderProgram
 {
 public:
-	StaticShader(const std::string& fileName);
-	virtual ~StaticShader();
+	BasicShader(const std::string& fileName);
+	virtual ~BasicShader();
 
 	void LoadTransformMatrix(glm::mat4& matrix);
 	void LoadProjectionMatrix(glm::mat4& matrix);
 	void LoadViewMatrix(Camera& camera);
-	void LoadLight(Light& light);
+	void LoadLight(Light& light, float ambientLight);
 	void LoadShineVariables(float shineDamper, float shine);
 private:
 	GLuint location_TransformMatrix;
@@ -23,6 +23,7 @@ private:
 	GLuint location_ViewMatrix;
 	GLuint location_lightPosition;
 	GLuint location_lightColor;
+	GLuint location_ambientLight;
 	GLuint location_shineDamper;
 	GLuint location_shine;
 protected:

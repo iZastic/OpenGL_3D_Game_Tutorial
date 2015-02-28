@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Engine\GameManager.cpp" />
+    <ClCompile Include="RenderEngine\MasterRenderer.cpp" />
     <ClCompile Include="RenderEngine\OBJLoader.cpp" />
     <ClCompile Include="Toolbox\Maths.cpp" />
     <ClCompile Include="RenderEngine\Renderer.cpp" />
@@ -101,13 +102,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
     <ClCompile Include="Shaders\ShaderProgram.cpp" />
-    <ClCompile Include="Shaders\StaticShader.cpp" />
+    <ClCompile Include="Shaders\BasicShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Engine\GameManager.h" />
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Entities\Light.h" />
+    <ClInclude Include="RenderEngine\MasterRenderer.h" />
     <ClInclude Include="RenderEngine\OBJLoader.h" />
     <ClInclude Include="Toolbox\Maths.h" />
     <ClInclude Include="Models\TexturedModel.h" />
@@ -117,7 +119,7 @@
     <ClInclude Include="Models\RawModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />
     <ClInclude Include="Shaders\ShaderProgram.h" />
-    <ClInclude Include="Shaders\StaticShader.h" />
+    <ClInclude Include="Shaders\BasicShader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

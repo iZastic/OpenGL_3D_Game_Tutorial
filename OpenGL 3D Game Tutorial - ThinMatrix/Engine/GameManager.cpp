@@ -1,12 +1,14 @@
 #include <iostream>
+#include <stdlib.h>
+#include <ctime>
 #include <GL\glew.h>
 #include "GameManager.h"
 #include "../RenderEngine/Loader.h"
-#include "../RenderEngine/Renderer.h"
+#include "../RenderEngine/MasterRenderer.h"
 #include "../Models/RawModel.h"
 #include "../Models/TexturedModel.h"
 #include "../Textures/ModelTexture.h"
-#include "../Shaders/StaticShader.h"
+#include "../Shaders/BasicShader.h"
 #include "../Entities/Entity.h"
 #include "../Entities/Camera.h"
 #include "../RenderEngine/OBJLoader.h"
@@ -51,40 +53,41 @@ void GameManager::Start()
 {
 	std::cout << "Game loop is now running" << std::endl;
 
-	Loader loader;
-
-	StaticShader staticShader("basicShader");
-
-	Renderer renderer(staticShader, m_displayManager->GetAspect());
-
 	// START temporary data
-	std::string object = "dragon";
+	Loader loader;
+	std::string object = "box";
 	RawModel model = OBJLoader::LoadObjModel(object, loader);
 	ModelTexture texture(loader.LoadTexture(object));
 	texture.SetShineDamper(10);
 	texture.SetShine(1);
 	TexturedModel texturedModel(model, texture);
 
-	Entity entity(texturedModel, glm::vec3(0, 0, -20), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	
-	Light light(glm::vec3(0, 10, 0), glm::vec3(1, 1, 1));
+	srand(time(0));
+	std::vector<Entity> entities;
+	for (int i = 0; i < 10; i++){
+		int x = rand() % 20 - 20;
+		int y = rand() % 20;
+		int z = rand() % 20 - 20;
+		entities.push_back(Entity(texturedModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	}
 	// END temporary data
-	
+
+	Light light(glm::vec3(0, 10, 0), glm::vec3(1, 1, 1));
 	Camera camera;
 
 	float x = 0.002f;
+	MasterRenderer renderer(m_displayManager->GetAspect());
 	// Start the game loop
 	while (m_displayManager->IsWindowOpen())
 	{
-		// Rotate cube
-		entity.ChangeRotation(glm::vec3(0, x, 0));
 		camera.Move();
-		renderer.Prepare();
-		staticShader.Use();
-		staticShader.LoadViewMatrix(camera);
-		staticShader.LoadLight(light);
-		renderer.Render(entity, staticShader);
-		staticShader.UnUse();
+
+		for (Entity& e : entities)
+		{
+			e.ChangeRotation(glm::vec3(x * ((rand() % 8 + 2) / 2), x * ((rand() % 8 + 2) / 2), 0));
+			renderer.ProcessEntity(e);
+		}
+		renderer.Render(light, camera);
 
 		m_displayManager->UpdateDisplay();
 		m_displayManager->ShowUPS();

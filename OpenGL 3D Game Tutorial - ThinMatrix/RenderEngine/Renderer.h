@@ -1,23 +1,32 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include <glm\glm.hpp>
+#include <map>
+#include <vector>
 #include "../Entities/Entity.h"
-#include "../Shaders/StaticShader.h"
+#include "../Shaders/BasicShader.h"
+
+struct tmCompare
+{
+public:
+	bool operator() (const TexturedModel& t1, const TexturedModel& t2)
+	{
+		return &t1 == &t2;
+	}
+};
 
 class Renderer
 {
 public:
-	Renderer(StaticShader& shader, float& aspect);
+	Renderer(BasicShader& shader);
 	virtual ~Renderer();
 
-	void Prepare();
-	void Render(Entity& entity, StaticShader& shader);
+	void Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& entities);
 private:
-	const float m_FOV = 70;
-	const float m_NEAR_PLANE = 0.1f;
-	const float m_FAR_PLANE = 1000;
-	glm::mat4 m_projectionMatrix;
+	BasicShader& m_shader;
+	void BindTexturedModel(TexturedModel texturedModel);
+	void UnbindTexturedModel();
+	void RenderEntity(Entity& entity);
 };
 
 #endif // RENDERER_H

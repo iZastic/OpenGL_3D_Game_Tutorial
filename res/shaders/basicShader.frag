@@ -9,6 +9,7 @@ out vec4 fragColor;
 
 uniform sampler2D textureSampler;
 uniform vec3 lightColor;
+uniform float ambientLight;
 uniform float shineDamper;
 uniform float shine;
 
@@ -21,7 +22,7 @@ void main()
 	/* Used for diffuse lighting */
 	// Find out how bright the light should be and keep it above 0
 	float brightness = dot(unitNormal, unitLightVector);
-	brightness = max(brightness, 0.0);
+	brightness = max(brightness, ambientLight);
 	// Get the ammount of light color to add
 	vec3 diffuse = brightness * lightColor;
 
