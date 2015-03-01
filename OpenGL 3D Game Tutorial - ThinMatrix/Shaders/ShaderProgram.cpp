@@ -1,5 +1,4 @@
-#include <iostream>
-#include <fstream>
+#include <stdio.h>
 #include "ShaderProgram.h"
 
 
@@ -30,7 +29,7 @@ ShaderProgram::ShaderProgram(const std::string& fileName)
 		// Get the info log
 		GLchar* infoLog = new GLchar[infoLogLength];
 		glGetProgramInfoLog(m_programID, infoLogLength, NULL, infoLog);
-		std::cerr << "ERROR: could not validate program \n" << infoLog << std::endl;
+		printf("ERROR: could not validate program \n%s\n", infoLog);
 		// Delete the array
 		delete[] infoLog;
 	}
@@ -50,23 +49,21 @@ ShaderProgram::~ShaderProgram()
 
 GLuint ShaderProgram::LoadShader(const std::string& fileName, GLenum type)
 {
-	// Open the file
-	std::ifstream file;
-	file.open(fileName.c_str());
+	// Open the file as read only
+	FILE* file;
+	if (fopen_s(&file, fileName.c_str(), "r") != 0)
+	{
+		printf("Failed to open: %s\n", fileName);
+	}
 
 	// Create temp variables
-	std::string source, line;
-
-	if (file.is_open())
+	std::string source;
+	char buffer[1024], *token;
+	while (fgets(buffer, 1024, file) != NULL)
 	{
-		// Load file to string
-		while (std::getline(file, line))
-			source.append(line + "\n");
+		source.append(buffer);
 	}
-	else
-	{
-		std::cerr << "Unable to load shader: " << fileName << std::endl;
-	}
+	fclose(file);
 
 	// Create shader ID
 	GLuint shaderID = glCreateShader(type);
@@ -92,7 +89,7 @@ GLuint ShaderProgram::LoadShader(const std::string& fileName, GLenum type)
 		// Get the info log
 		GLchar* infoLog = new GLchar[infoLogLength];
 		glGetShaderInfoLog(shaderID, infoLogLength, NULL, infoLog);
-		std::cerr << "ERROR: could not compile shader \n" << infoLog << std::endl;
+		printf("ERROR: could not compile shader \n%s\n", infoLog);
 		// Delete the array
 		delete[] infoLog;
 	}
