@@ -6,6 +6,7 @@
 #include "../Entities/Entity.h"
 #include "../Shaders/BasicShader.h"
 
+// This struct is used to compare entities in a map
 struct tmCompare
 {
 public:
@@ -15,11 +16,11 @@ public:
 	}
 };
 
-class Renderer
+class EntityRenderer
 {
 public:
-	Renderer(BasicShader& shader);
-	virtual ~Renderer();
+	EntityRenderer(BasicShader& shader, glm::mat4& projectionMatrix);
+	virtual ~EntityRenderer();
 
 	void Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& entities);
 private:

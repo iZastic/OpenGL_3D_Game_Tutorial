@@ -96,8 +96,11 @@
     <ClCompile Include="Engine\GameManager.cpp" />
     <ClCompile Include="RenderEngine\MasterRenderer.cpp" />
     <ClCompile Include="RenderEngine\OBJLoader.cpp" />
+    <ClCompile Include="Shaders\TerrainShader.cpp" />
+    <ClCompile Include="RenderEngine\TerrainRenderer.cpp" />
+    <ClCompile Include="Terrain\Terrain.cpp" />
     <ClCompile Include="Toolbox\Maths.cpp" />
-    <ClCompile Include="RenderEngine\Renderer.cpp" />
+    <ClCompile Include="RenderEngine\EntityRenderer.cpp" />
     <ClCompile Include="RenderEngine\Loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
@@ -111,10 +114,13 @@
     <ClInclude Include="Entities\Light.h" />
     <ClInclude Include="RenderEngine\MasterRenderer.h" />
     <ClInclude Include="RenderEngine\OBJLoader.h" />
+    <ClInclude Include="Shaders\TerrainShader.h" />
+    <ClInclude Include="RenderEngine\TerrainRenderer.h" />
+    <ClInclude Include="Terrain\Terrain.h" />
     <ClInclude Include="Toolbox\Maths.h" />
     <ClInclude Include="Models\TexturedModel.h" />
     <ClInclude Include="Textures\ModelTexture.h" />
-    <ClInclude Include="RenderEngine\Renderer.h" />
+    <ClInclude Include="RenderEngine\EntityRenderer.h" />
     <ClInclude Include="RenderEngine\Loader.h" />
     <ClInclude Include="Models\RawModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />

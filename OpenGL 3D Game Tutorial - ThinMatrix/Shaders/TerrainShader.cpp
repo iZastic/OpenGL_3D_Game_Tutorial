@@ -1,38 +1,38 @@
-#include "BasicShader.h"
+#include "TerrainShader.h"
 #include "../Toolbox/Maths.h"
 
-BasicShader::BasicShader()
-	: ShaderProgram("../res/shaders/basicShader")
+TerrainShader::TerrainShader()
+	: ShaderProgram("../res/shaders/terrainShader")
 {
 	BindAttributes();
 	GetAllUniformLocations();
 }
 
 
-BasicShader::~BasicShader()
+TerrainShader::~TerrainShader()
 {
 }
 
 
-void BasicShader::LoadTransformMatrix(glm::mat4& matrix)
+void TerrainShader::LoadTransformMatrix(glm::mat4& matrix)
 {
 	LoadMatrix4(location_TransformMatrix, matrix);
 }
 
 
-void BasicShader::LoadProjectionMatrix(glm::mat4& matrix)
+void TerrainShader::LoadProjectionMatrix(glm::mat4& matrix)
 {
 	LoadMatrix4(location_ProjectionMatrix, matrix);
 }
 
 
-void BasicShader::LoadViewMatrix(Camera& camera)
+void TerrainShader::LoadViewMatrix(Camera& camera)
 {
 	LoadMatrix4(location_ViewMatrix, Maths::CreateViewMatrix(camera));
 }
 
 
-void BasicShader::LoadLight(Light& light, float ambientLight)
+void TerrainShader::LoadLight(Light& light, float ambientLight)
 {
 	LoadVector(location_lightPosition, light.GetPosition());
 	LoadVector(location_lightColor, light.GetColor());
@@ -40,14 +40,14 @@ void BasicShader::LoadLight(Light& light, float ambientLight)
 }
 
 
-void BasicShader::LoadShineVariables(float shineDamper, float shine)
+void TerrainShader::LoadShineVariables(float shineDamper, float shine)
 {
 	LoadFloat(location_shineDamper, shineDamper);
 	LoadFloat(location_shine, shine);
 }
 
 
-void BasicShader::BindAttributes()
+void TerrainShader::BindAttributes()
 {
 	BindAttribute(0, "position");
 	BindAttribute(1, "texCoords");
@@ -55,7 +55,7 @@ void BasicShader::BindAttributes()
 }
 
 
-void BasicShader::GetAllUniformLocations()
+void TerrainShader::GetAllUniformLocations()
 {
 	location_TransformMatrix = GetUniformLocation("transformMatrix");
 	location_ProjectionMatrix = GetUniformLocation("projectionMatrix");

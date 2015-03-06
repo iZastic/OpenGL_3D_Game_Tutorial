@@ -1,15 +1,15 @@
-#ifndef BASICSHADER_H
-#define BASICSHADER_H
+#ifndef TERRAINSHADER_H
+#define TERRAINSHADER_H
 
 #include "ShaderProgram.h"
 #include "../Entities/Camera.h"
 #include "../Entities/Light.h"
 
-class BasicShader : public ShaderProgram
+class TerrainShader : public ShaderProgram
 {
 public:
-	BasicShader();
-	virtual ~BasicShader();
+	TerrainShader();
+	virtual ~TerrainShader();
 
 	void LoadTransformMatrix(glm::mat4& matrix);
 	void LoadProjectionMatrix(glm::mat4& matrix);
@@ -30,4 +30,4 @@ protected:
 	void GetAllUniformLocations();
 };
 
-#endif // BASICSHADER_H
+#endif // TERRAINSHADER_H

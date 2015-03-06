@@ -12,6 +12,7 @@
 #include "../Entities/Entity.h"
 #include "../Entities/Camera.h"
 #include "../RenderEngine/OBJLoader.h"
+#include "../Terrain/Terrain.h"
 
 GameManager::GameManager()
 {
@@ -65,28 +66,32 @@ void GameManager::Start()
 	srand(time(0));
 	std::vector<Entity> entities;
 	for (int i = 0; i < 10; i++){
-		int x = rand() % 20 - 20;
-		int y = rand() % 20;
-		int z = rand() % 20 - 20;
-		entities.push_back(Entity(texturedModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+		int x = rand() % 40 - 20;
+		int z = rand() % 50 - 50;
+		entities.push_back(Entity(texturedModel, glm::vec3(x, 1, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
 	}
 	// END temporary data
+
+	std::vector<Terrain> terrains;
+	terrains.push_back(Terrain(-1, 0, loader, ModelTexture(loader.LoadTexture("grassy3", true))));
+	terrains.push_back(Terrain(0, 0, loader, ModelTexture(loader.LoadTexture("grassy2", true))));
+	terrains.push_back(Terrain(-1, -1, loader, ModelTexture(loader.LoadTexture("grassy2", true))));
+	terrains.push_back(Terrain(0, -1, loader, ModelTexture(loader.LoadTexture("grassy3", true))));
 
 	Light light(glm::vec3(0, 10, 0), glm::vec3(1, 1, 1));
 	Camera camera;
 
-	float x = 0.002f;
 	MasterRenderer renderer(m_displayManager->GetAspect());
 	// Start the game loop
 	while (m_displayManager->IsWindowOpen())
 	{
 		camera.Move();
 
+		for (Terrain& t : terrains)
+			renderer.ProcessTerrain(t);
 		for (Entity& e : entities)
-		{
-			e.ChangeRotation(glm::vec3(x * ((rand() % 8 + 2) / 2), x * ((rand() % 8 + 2) / 2), 0));
 			renderer.ProcessEntity(e);
-		}
+
 		renderer.Render(light, camera);
 
 		m_displayManager->UpdateDisplay();

@@ -38,11 +38,15 @@ ShaderProgram::ShaderProgram(const std::string& fileName)
 
 ShaderProgram::~ShaderProgram()
 {
+	// Make sure we are not using this shader
 	UnUse();
+	// Detach the shaders from the program
 	glDetachShader(m_programID, m_vertexShaderID);
 	glDetachShader(m_programID, m_fragmentShaderID);
+	// Delete the shaders
 	glDeleteShader(m_vertexShaderID);
 	glDeleteShader(m_fragmentShaderID);
+	// Delete the program
 	glDeleteProgram(m_programID);
 }
 
@@ -58,7 +62,7 @@ GLuint ShaderProgram::LoadShader(const std::string& fileName, GLenum type)
 
 	// Create temp variables
 	std::string source;
-	char buffer[1024], *token;
+	char buffer[1024];
 	while (fgets(buffer, 1024, file) != NULL)
 	{
 		source.append(buffer);

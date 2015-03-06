@@ -1,27 +1,24 @@
-#include "Renderer.h"
 #include <GL\glew.h>
 #include "../Toolbox/Maths.h"
 #include "../Models/RawModel.h"
 #include "../Models/TexturedModel.h"
+#include "EntityRenderer.h"
 
-Renderer::Renderer(BasicShader& shader) : m_shader(shader)
+EntityRenderer::EntityRenderer(BasicShader& shader, glm::mat4& projectionMatrix) : m_shader(shader)
 {
-	// Don't draw faces we can't see
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	// Tell OpenGL to test for depth
-	glEnable(GL_DEPTH_TEST);
-	// Set clear color and clear the screen
-	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+	// Load the projection matrix into the shader
+	m_shader.Use();
+	m_shader.LoadProjectionMatrix(projectionMatrix);
+	m_shader.UnUse();
 }
 
 
-Renderer::~Renderer()
+EntityRenderer::~EntityRenderer()
 {
 }
 
 
-void Renderer::Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& entities)
+void EntityRenderer::Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& entities)
 {
 	// Loop through the keys
 	for (auto &key : entities)
@@ -35,7 +32,7 @@ void Renderer::Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& e
 }
 
 
-void Renderer::BindTexturedModel(TexturedModel texturedModel)
+void EntityRenderer::BindTexturedModel(TexturedModel texturedModel)
 {
 	// Get the RawModel from the textured model
 	RawModel& model = texturedModel.GetRawModel();
@@ -53,7 +50,7 @@ void Renderer::BindTexturedModel(TexturedModel texturedModel)
 }
 
 
-void Renderer::UnbindTexturedModel()
+void EntityRenderer::UnbindTexturedModel()
 {
 	// Disable the attrib arrays
 	for (unsigned int i = 0; i < 3; i++)
@@ -62,7 +59,7 @@ void Renderer::UnbindTexturedModel()
 }
 
 
-void Renderer::RenderEntity(Entity& entity)
+void EntityRenderer::RenderEntity(Entity& entity)
 {
 	// Load the transformation matrix into the shader
 	m_shader.LoadTransformMatrix(Maths::CreateTransformMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale()));

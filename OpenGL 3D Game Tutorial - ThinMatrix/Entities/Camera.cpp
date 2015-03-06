@@ -15,7 +15,10 @@ Camera::~Camera()
 
 void Camera::Move()
 {
-	float speed = 0.005f;
+	float speed = 0.05f;
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		speed *= 10;
+
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 		m_position.z -= speed;
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)

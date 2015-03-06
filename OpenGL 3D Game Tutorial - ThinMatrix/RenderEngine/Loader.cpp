@@ -52,7 +52,7 @@ RawModel Loader::LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec
 }
 
 
-GLuint Loader::LoadTexture(const std::string& fileName)
+GLuint Loader::LoadTexture(const std::string& fileName, bool repeat)
 {
 	GLuint texture;
 	int width, height, numComponents;
@@ -70,9 +70,13 @@ GLuint Loader::LoadTexture(const std::string& fileName)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	// Tell OpenGL to clamp textures to the edge (so you don't get transparent gaps)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	// Allow repeating textures for terrain
+	if (!repeat)
+	{
+		// Tell OpenGL to clamp textures to the edge (so you don't get transparent gaps)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	}
 
 	// Store the OpenGL texture data
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
