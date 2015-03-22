@@ -85,7 +85,7 @@ void DisplayManager::ShowUPS()
 	average /= SIZE;
 
 	// Update the title with the FPS
-	glfwSetWindowTitle(m_window, (m_title + " | Updates per second: " + std::to_string(1.0f / average)).c_str());
+	glfwSetWindowTitle(m_window, (m_title + " | FPS: " + std::to_string(1.0f / average)).c_str());
 
 	// Store the current time
 	previous = now;
