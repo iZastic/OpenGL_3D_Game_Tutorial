@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <GLFW\glfw3.h>
+#include <glm\gtx\transform.hpp>
 
 Camera::Camera()
 	: m_position(glm::vec3(0, 5, 0))
@@ -13,9 +14,9 @@ Camera::~Camera()
 }
 
 
-void Camera::Move()
+void Camera::Update()
 {
-	float speed = 0.05f;
+	float speed = 0.25f;
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		speed *= 10;
 
@@ -41,4 +42,10 @@ void Camera::Move()
 
 		m_wireframe = !m_wireframe;
 	}
+}
+
+
+glm::mat4 Camera::GetViewMatrix() const
+{
+	return glm::lookAt(m_position, m_position + glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 }

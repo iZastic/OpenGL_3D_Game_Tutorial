@@ -21,7 +21,7 @@ MasterRenderer::~MasterRenderer()
 }
 
 
-void MasterRenderer::Render(Light& light, Camera& camera)
+void MasterRenderer::Render(Light& light, glm::mat4& cameraViewMatrix)
 {
 	// Clear buffers and activate the shader
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -29,7 +29,7 @@ void MasterRenderer::Render(Light& light, Camera& camera)
 	// Load terrain shader parameters and render terrains
 	m_terrainShader.Use();
 	m_terrainShader.LoadLight(light, 0.1f);
-	m_terrainShader.LoadViewMatrix(camera);
+	m_terrainShader.LoadViewMatrix(cameraViewMatrix);
 	m_terrainRenderer.Render(terrains);
 	m_terrainShader.UnUse();
 	terrains.clear();
@@ -37,7 +37,7 @@ void MasterRenderer::Render(Light& light, Camera& camera)
 	// Load basic shader parameters and render entities
 	m_basicShader.Use();
 	m_basicShader.LoadLight(light, 0.1f);
-	m_basicShader.LoadViewMatrix(camera);
+	m_basicShader.LoadViewMatrix(cameraViewMatrix);
 	m_entityRenderer.Render(m_entities);
 	m_basicShader.UnUse();
 	m_entities.clear();

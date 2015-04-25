@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Engine\GameManager.cpp" />
+    <ClCompile Include="Entities\FPSCamera.cpp" />
     <ClCompile Include="RenderEngine\MasterRenderer.cpp" />
     <ClCompile Include="RenderEngine\OBJLoader.cpp" />
     <ClCompile Include="Shaders\TerrainShader.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Engine\GameManager.h" />
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Entities\Light.h" />
+    <ClInclude Include="Entities\FPSCamera.h" />
     <ClInclude Include="RenderEngine\MasterRenderer.h" />
     <ClInclude Include="RenderEngine\OBJLoader.h" />
     <ClInclude Include="Shaders\TerrainShader.h" />

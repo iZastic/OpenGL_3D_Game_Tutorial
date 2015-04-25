@@ -26,9 +26,9 @@ void BasicShader::LoadProjectionMatrix(glm::mat4& matrix)
 }
 
 
-void BasicShader::LoadViewMatrix(Camera& camera)
+void BasicShader::LoadViewMatrix(glm::mat4& cameraViewMatrix)
 {
-	LoadMatrix4(location_ViewMatrix, Maths::CreateViewMatrix(camera));
+	LoadMatrix4(location_ViewMatrix, cameraViewMatrix);
 }
 
 

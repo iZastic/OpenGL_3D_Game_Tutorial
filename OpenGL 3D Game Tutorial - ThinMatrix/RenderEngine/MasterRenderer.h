@@ -10,7 +10,7 @@ public:
 	MasterRenderer(float aspectRatio);
 	virtual ~MasterRenderer();
 
-	void Render(Light& light, Camera& camera);
+	void Render(Light& light, glm::mat4& cameraViewMatrix);
 	void ProcessTerrain(Terrain& terrain);
 	void ProcessEntity(Entity& entity);
 private:

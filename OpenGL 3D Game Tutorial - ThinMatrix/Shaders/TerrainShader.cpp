@@ -26,9 +26,9 @@ void TerrainShader::LoadProjectionMatrix(glm::mat4& matrix)
 }
 
 
-void TerrainShader::LoadViewMatrix(Camera& camera)
+void TerrainShader::LoadViewMatrix(glm::mat4& cameraViewMatrix)
 {
-	LoadMatrix4(location_ViewMatrix, Maths::CreateViewMatrix(camera));
+	LoadMatrix4(location_ViewMatrix, cameraViewMatrix);
 }
 
 

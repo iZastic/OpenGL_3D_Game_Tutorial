@@ -16,9 +16,3 @@ glm::mat4 Maths::CreateTransformMatrix(glm::vec3& translation, glm::vec3& rotati
 	// Return total transform matrix
 	return transMatrix * rotMatrix * scaleMatrix;
 }
-
-
-glm::mat4 Maths::CreateViewMatrix(Camera& camera)
-{
-	return glm::lookAt(camera.GetPosition(), camera.GetPosition() + glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-}

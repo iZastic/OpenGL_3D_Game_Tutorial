@@ -11,6 +11,7 @@
 #include "../Shaders/BasicShader.h"
 #include "../Entities/Entity.h"
 #include "../Entities/Camera.h"
+#include "../Entities/FPSCamera.h"
 #include "../RenderEngine/OBJLoader.h"
 #include "../Terrain/Terrain.h"
 
@@ -78,21 +79,21 @@ void GameManager::Start()
 	terrains.push_back(Terrain(-1, -1, loader, ModelTexture(loader.LoadTexture("grassy2", true))));
 	terrains.push_back(Terrain(0, -1, loader, ModelTexture(loader.LoadTexture("grassy3", true))));
 
-	Light light(glm::vec3(0, 10, 0), glm::vec3(1, 1, 1));
-	Camera camera;
+	Light light(glm::vec3(0, 50, 0), glm::vec3(1, 1, 1));
+	FPSCamera camera(true);
 
 	MasterRenderer renderer(m_displayManager->GetAspect());
 	// Start the game loop
 	while (m_displayManager->IsWindowOpen())
 	{
-		camera.Move();
+		camera.Update();
 
 		for (Terrain& t : terrains)
 			renderer.ProcessTerrain(t);
 		for (Entity& e : entities)
 			renderer.ProcessEntity(e);
 
-		renderer.Render(light, camera);
+		renderer.Render(light, camera.GetViewMatrix());
 
 		m_displayManager->UpdateDisplay();
 		m_displayManager->ShowUPS();

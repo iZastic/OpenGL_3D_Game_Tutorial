@@ -13,7 +13,7 @@ public:
 
 	void LoadTransformMatrix(glm::mat4& matrix);
 	void LoadProjectionMatrix(glm::mat4& matrix);
-	void LoadViewMatrix(Camera& camera);
+	void LoadViewMatrix(glm::mat4& cameraViewMatrix);
 	void LoadLight(Light& light, float ambientLight);
 	void LoadShineVariables(float shineDamper, float shine);
 private:

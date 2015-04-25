@@ -9,7 +9,8 @@ public:
 	Camera();
 	virtual ~Camera();
 
-	void Move();
+	void Update();
+	glm::mat4 GetViewMatrix() const;
 
 	inline glm::vec3 GetPosition() { return m_position; }
 	inline float GetPitch() { return m_pitch; }
