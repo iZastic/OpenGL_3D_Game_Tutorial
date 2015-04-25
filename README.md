@@ -15,7 +15,9 @@ External libraries I'll be using are:
 
 This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channel.
 
-[thebennybox](https://www.youtube.com/user/thebennybox) also has good tutorials. Many of these tutorials were used to convert this to C++
+[thebennybox](https://www.youtube.com/user/thebennybox) also has good tutorials. Many of these tutorials were used to convert this to C++.
+
+[Jamie King](https://www.youtube.com/user/1kingja) also used some of this guys tutorials. For example, the FPS camera.
 
 ### Current Screenshot ###
 ![current screenshot](https://github.com/iZastic/OpenGL_3D_Game_Tutorial/blob/master/current.png)
