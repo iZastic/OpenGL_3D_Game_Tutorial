@@ -50,14 +50,15 @@ void MasterRenderer::ProcessTerrain(Terrain& terrain)
 	terrains.push_back(terrain);
 }
 
-
+#include <iostream>
 void MasterRenderer::ProcessEntity(Entity& entity)
 {
 	// Get the textured model
 	TexturedModel& texturedModel = entity.GetModel();
 	// If the texturedmodel is in the map this will do nothing
 	// If it is not in the map it will insert it
-	m_entities.insert(std::make_pair(texturedModel, std::vector<Entity>()));
+	m_entities.insert(tMap::value_type(texturedModel, std::vector<Entity>()));
+	
 	// Add the entity to the entities list
-	m_entities.find(texturedModel)->second.push_back(entity);
+	m_entities[texturedModel].push_back(entity);
 }

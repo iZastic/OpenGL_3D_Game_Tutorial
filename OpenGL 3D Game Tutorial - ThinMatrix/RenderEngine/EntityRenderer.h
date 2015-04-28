@@ -10,11 +10,14 @@
 struct tmCompare
 {
 public:
-	bool operator() (const TexturedModel& t1, const TexturedModel& t2)
+	bool operator() (const TexturedModel& t1, const TexturedModel& t2) const
 	{
-		return &t1 == &t2;
+		return ((t1.GetRawModel().GetVaoID() < t2.GetRawModel().GetVaoID()) ||
+			   (t1.GetModelTexture().GetTextureID() < t2.GetModelTexture().GetTextureID()));
 	}
 };
+
+typedef std::map<TexturedModel, std::vector<Entity>, tmCompare> tMap;
 
 class EntityRenderer
 {
@@ -22,7 +25,7 @@ public:
 	EntityRenderer(BasicShader& shader, glm::mat4& projectionMatrix);
 	virtual ~EntityRenderer();
 
-	void Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& entities);
+	void Render(tMap& entities);
 private:
 	BasicShader& m_shader;
 	void BindTexturedModel(TexturedModel texturedModel);

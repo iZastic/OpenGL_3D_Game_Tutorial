@@ -71,7 +71,21 @@ void GameManager::Start()
 		int z = rand() % 50 - 50;
 		entities.push_back(Entity(texturedModel, glm::vec3(x, 1, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
 	}
-	// END temporary data
+	RawModel mFern = OBJLoader::LoadObjModel("fern", loader);
+	ModelTexture mtFern1(loader.LoadTexture("fern1"));
+	ModelTexture mtFern2(loader.LoadTexture("fern2"));
+	ModelTexture mtFern3(loader.LoadTexture("fern3"));
+	ModelTexture mtFern4(loader.LoadTexture("fern4"));
+	TexturedModel tmFern1(mFern, mtFern1);
+	TexturedModel tmFern2(mFern, mtFern2);
+	TexturedModel tmFern3(mFern, mtFern3);
+	TexturedModel tmFern4(mFern, mtFern4);
+	for (int i = 0; i < 20; i++){
+		int x = rand() % 200 - 100;
+		int z = rand() % 200 - 100;
+		entities.push_back(Entity(i < 5 ? tmFern1 : i < 10 ? tmFern2 : i < 15 ? tmFern3 : tmFern4, glm::vec3(x, 0.5f, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	}
+
 
 	std::vector<Terrain> terrains;
 	terrains.push_back(Terrain(-1, 0, loader, ModelTexture(loader.LoadTexture("grassy3", true))));
@@ -81,6 +95,7 @@ void GameManager::Start()
 
 	Light light(glm::vec3(0, 50, 0), glm::vec3(1, 1, 1));
 	FPSCamera camera(true);
+	// END temporary data
 
 	MasterRenderer renderer(m_displayManager->GetAspect());
 	// Start the game loop
