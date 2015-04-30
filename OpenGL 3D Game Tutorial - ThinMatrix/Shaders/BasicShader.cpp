@@ -47,6 +47,12 @@ void BasicShader::LoadShineVariables(float shineDamper, float shine)
 }
 
 
+void BasicShader::LoadUseUpNormal(bool useUpNormal)
+{
+	LoadBool(location_useUpNormal, useUpNormal);
+}
+
+
 void BasicShader::BindAttributes()
 {
 	BindAttribute(0, "position");
@@ -65,4 +71,5 @@ void BasicShader::GetAllUniformLocations()
 	location_ambientLight = GetUniformLocation("ambientLight");
 	location_shineDamper = GetUniformLocation("shineDamper");
 	location_shine = GetUniformLocation("shine");
+	location_useUpNormal = GetUniformLocation("useUpNormal");
 }

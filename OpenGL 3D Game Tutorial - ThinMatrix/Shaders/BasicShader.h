@@ -16,6 +16,7 @@ public:
 	void LoadViewMatrix(glm::mat4& cameraViewMatrix);
 	void LoadLight(Light& light, float ambientLight);
 	void LoadShineVariables(float shineDamper, float shine);
+	void LoadUseUpNormal(bool useUpNormal);
 private:
 	GLuint location_TransformMatrix;
 	GLuint location_ProjectionMatrix;
@@ -25,6 +26,7 @@ private:
 	GLuint location_ambientLight;
 	GLuint location_shineDamper;
 	GLuint location_shine;
+	GLuint location_useUpNormal;
 protected:
 	void BindAttributes();
 	void GetAllUniformLocations();

@@ -43,6 +43,12 @@ void EntityRenderer::BindTexturedModel(TexturedModel texturedModel)
 		glEnableVertexAttribArray(i);
 	// Load shine from the texture
 	ModelTexture texture = texturedModel.GetModelTexture();
+	// Disable cullinging if back faces might be seen due to transparency
+	if (texture.GetHasTransparency())
+		glDisable(GL_CULL_FACE);
+	// Load using the fake UP normal bool
+	m_shader.LoadUseUpNormal(texture.GetUseUpNormal());
+	// Load shineness
 	m_shader.LoadShineVariables(texture.GetShineDamper(), texture.GetShine());
 	// Activate an OpenGL texture and tell it where the texture is
 	glActiveTexture(GL_TEXTURE0);
@@ -52,6 +58,8 @@ void EntityRenderer::BindTexturedModel(TexturedModel texturedModel)
 
 void EntityRenderer::UnbindTexturedModel()
 {
+	// Re-enable culling if disabled
+	glEnable(GL_CULL_FACE);
 	// Disable the attrib arrays
 	for (unsigned int i = 0; i < 3; i++)
 		glDisableVertexAttribArray(i);

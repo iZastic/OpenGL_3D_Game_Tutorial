@@ -57,25 +57,33 @@ void GameManager::Start()
 
 	// START temporary data
 	Loader loader;
-	std::string object = "box";
-	RawModel model = OBJLoader::LoadObjModel(object, loader);
-	ModelTexture texture(loader.LoadTexture(object));
-	texture.SetShineDamper(10);
-	texture.SetShine(1);
-	TexturedModel texturedModel(model, texture);
 
 	srand(time(0));
 	std::vector<Entity> entities;
-	for (int i = 0; i < 10; i++){
-		int x = rand() % 40 - 20;
-		int z = rand() % 50 - 50;
-		entities.push_back(Entity(texturedModel, glm::vec3(x, 1, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+
+	RawModel mBox = OBJLoader::LoadObjModel("lowPolyTree", loader);
+	ModelTexture mtBox(loader.LoadTexture("lowPolyTree"));
+	TexturedModel tmBox(mBox, mtBox);
+	for (int i = 0; i < 25; i++){
+		int x = rand() % 500 - 250;
+		int z = rand() % 500 - 250;
+		entities.push_back(Entity(tmBox, glm::vec3(x, 0, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
 	}
+
+	RawModel mGrass = OBJLoader::LoadObjModel("grass", loader);
+	ModelTexture mtGrass(loader.LoadTexture("grass"), true, true);
+	TexturedModel tmGrass(mGrass, mtGrass);
+	for (int i = 0; i < 100; i++){
+		int x = rand() % 500 - 250;
+		int z = rand() % 500 - 250;
+		entities.push_back(Entity(tmGrass, glm::vec3(x, 0, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	}
+
 	RawModel mFern = OBJLoader::LoadObjModel("fern", loader);
-	ModelTexture mtFern1(loader.LoadTexture("fern1"));
-	ModelTexture mtFern2(loader.LoadTexture("fern2"));
-	ModelTexture mtFern3(loader.LoadTexture("fern3"));
-	ModelTexture mtFern4(loader.LoadTexture("fern4"));
+	ModelTexture mtFern1(loader.LoadTexture("fern1"), true, true);
+	ModelTexture mtFern2(loader.LoadTexture("fern2"), true, true);
+	ModelTexture mtFern3(loader.LoadTexture("fern3"), true, true);
+	ModelTexture mtFern4(loader.LoadTexture("fern4"), true, true);
 	TexturedModel tmFern1(mFern, mtFern1);
 	TexturedModel tmFern2(mFern, mtFern2);
 	TexturedModel tmFern3(mFern, mtFern3);
@@ -83,7 +91,7 @@ void GameManager::Start()
 	for (int i = 0; i < 20; i++){
 		int x = rand() % 200 - 100;
 		int z = rand() % 200 - 100;
-		entities.push_back(Entity(i < 5 ? tmFern1 : i < 10 ? tmFern2 : i < 15 ? tmFern3 : tmFern4, glm::vec3(x, 0.5f, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+		entities.push_back(Entity(i < 5 ? tmFern1 : i < 10 ? tmFern2 : i < 15 ? tmFern3 : tmFern4, glm::vec3(x, 0, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
 	}
 
 

@@ -50,7 +50,7 @@ void MasterRenderer::ProcessTerrain(Terrain& terrain)
 	terrains.push_back(terrain);
 }
 
-#include <iostream>
+
 void MasterRenderer::ProcessEntity(Entity& entity)
 {
 	// Get the textured model
