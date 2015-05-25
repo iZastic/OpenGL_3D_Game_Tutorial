@@ -11,6 +11,8 @@ DisplayManager::DisplayManager(int width, int height, const std::string& title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_FALSE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	// Needed to enable multisampling
+	glfwWindowHint(GLFW_SAMPLES, 4);
 
 	// Create OpenGL window using GLFW
 	m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);

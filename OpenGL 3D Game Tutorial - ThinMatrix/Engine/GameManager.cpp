@@ -94,6 +94,20 @@ void GameManager::Start()
 		entities.push_back(Entity(i < 5 ? tmFern1 : i < 10 ? tmFern2 : i < 15 ? tmFern3 : tmFern4, glm::vec3(x, 0, z), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
 	}
 
+	RawModel mCube = OBJLoader::LoadObjModel("cube", loader);
+	ModelTexture mtCube(loader.LoadTexture("cube"), false, true);
+	TexturedModel tmCube(mCube, mtCube, true);
+	entities.push_back(Entity(tmCube, glm::vec3(-8, 1, 4), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	entities.push_back(Entity(tmCube, glm::vec3(-8, 3, 4), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	entities.push_back(Entity(tmCube, glm::vec3(-8, 5, 4), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+
+	entities.push_back(Entity(tmCube, glm::vec3(13, 1, 18), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	entities.push_back(Entity(tmCube, glm::vec3(13, 3, 18), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	entities.push_back(Entity(tmCube, glm::vec3(13, 5, 18), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+
+	entities.push_back(Entity(tmCube, glm::vec3(6, 1, -7), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	entities.push_back(Entity(tmCube, glm::vec3(6, 3, -7), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
+	entities.push_back(Entity(tmCube, glm::vec3(6, 5, -7), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)));
 
 	std::vector<Terrain> terrains;
 	terrains.push_back(Terrain(-1, 0, loader, ModelTexture(loader.LoadTexture("grassy3", true))));
@@ -116,7 +130,7 @@ void GameManager::Start()
 		for (Entity& e : entities)
 			renderer.ProcessEntity(e);
 
-		renderer.Render(light, camera.GetViewMatrix());
+		renderer.Render(light, camera);
 
 		m_displayManager->UpdateDisplay();
 		m_displayManager->ShowUPS();

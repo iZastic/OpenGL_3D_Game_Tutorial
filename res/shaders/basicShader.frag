@@ -40,10 +40,11 @@ void main()
 	vec3 finalSpecular = dampedSpecular * shine * lightColor;
 
 	vec4 textureColor = texture(textureSampler, textureCoords);
-	if(textureColor.a < 0.5) {
+	// Discard fragments with less than 10% alpha
+	if(textureColor.a < 0.1) {
 		discard;
 	}
 
 	// Output the texture color * the ammount of light color + the reflected light
-	fragColor = vec4(diffuse, 1.0) * textureColor + vec4(finalSpecular, 1.0);
+	fragColor = vec4(diffuse, textureColor.a) * textureColor + vec4(finalSpecular, textureColor.a);
 }

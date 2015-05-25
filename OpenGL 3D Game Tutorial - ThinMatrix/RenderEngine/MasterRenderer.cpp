@@ -13,6 +13,11 @@ MasterRenderer::MasterRenderer(float aspectRatio)
 	glEnable(GL_DEPTH_TEST);
 	// Set clear color and clear the screen
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+	// Enable alpha blend
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// Enable Antialiasing
+	glEnable(GL_MULTISAMPLE);
 }
 
 
@@ -21,7 +26,7 @@ MasterRenderer::~MasterRenderer()
 }
 
 
-void MasterRenderer::Render(Light& light, glm::mat4& cameraViewMatrix)
+void MasterRenderer::Render(Light& light, FPSCamera camera)
 {
 	// Clear buffers and activate the shader
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -29,7 +34,7 @@ void MasterRenderer::Render(Light& light, glm::mat4& cameraViewMatrix)
 	// Load terrain shader parameters and render terrains
 	m_terrainShader.Use();
 	m_terrainShader.LoadLight(light, 0.1f);
-	m_terrainShader.LoadViewMatrix(cameraViewMatrix);
+	m_terrainShader.LoadViewMatrix(camera.GetViewMatrix());
 	m_terrainRenderer.Render(terrains);
 	m_terrainShader.UnUse();
 	terrains.clear();
@@ -37,8 +42,8 @@ void MasterRenderer::Render(Light& light, glm::mat4& cameraViewMatrix)
 	// Load basic shader parameters and render entities
 	m_basicShader.Use();
 	m_basicShader.LoadLight(light, 0.1f);
-	m_basicShader.LoadViewMatrix(cameraViewMatrix);
-	m_entityRenderer.Render(m_entities);
+	m_basicShader.LoadViewMatrix(camera.GetViewMatrix());
+	m_entityRenderer.Render(m_entities, camera.GetPosition());
 	m_basicShader.UnUse();
 	m_entities.clear();
 }

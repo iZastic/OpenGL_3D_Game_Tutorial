@@ -25,7 +25,7 @@ public:
 	EntityRenderer(BasicShader& shader, glm::mat4& projectionMatrix);
 	virtual ~EntityRenderer();
 
-	void Render(tMap& entities);
+	void Render(tMap& entities, glm::vec3 cameraPos);
 private:
 	BasicShader& m_shader;
 	void BindTexturedModel(TexturedModel texturedModel);

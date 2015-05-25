@@ -3,6 +3,7 @@
 
 #include "EntityRenderer.h"
 #include "TerrainRenderer.h"
+#include "../Entities/FPSCamera.h"
 
 class MasterRenderer
 {
@@ -10,7 +11,7 @@ public:
 	MasterRenderer(float aspectRatio);
 	virtual ~MasterRenderer();
 
-	void Render(Light& light, glm::mat4& cameraViewMatrix);
+	void Render(Light& light, FPSCamera camera);
 	void ProcessTerrain(Terrain& terrain);
 	void ProcessEntity(Entity& entity);
 private:

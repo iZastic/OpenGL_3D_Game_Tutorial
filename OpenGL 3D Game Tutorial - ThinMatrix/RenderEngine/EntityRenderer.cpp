@@ -17,16 +17,37 @@ EntityRenderer::~EntityRenderer()
 {
 }
 
-
-void EntityRenderer::Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& entities)
+#include <iostream>
+void EntityRenderer::Render(std::map<TexturedModel, std::vector<Entity>, tmCompare>& entities, glm::vec3 cameraPos)
 {
+	std::multimap<float, Entity> transparentEntities;
+
 	// Loop through the keys
+	// key.first = Textured model, key.second = entities vector
 	for (auto &key : entities)
 	{
-		// key.first = Textured model, key.second = entities vector
+		// If TexturedModel needs alpha blend (example: a windows glass), Save it for rendering last
+		if (key.first.GetBlendAlpha())
+		{
+			for (Entity e : key.second)
+			{
+				// They need to be orded by distance, so we add them to the map by distance from the camera
+				float distance = glm::length(cameraPos - e.GetPosition());
+				transparentEntities.insert(std::make_pair(distance, e));
+			}
+			continue;
+		}
 		BindTexturedModel(key.first);
 		for (Entity entity : key.second)
 			RenderEntity(entity);
+		UnbindTexturedModel();
+	}
+
+	// They need to be draw from farthest to nearest, so we draw them in reverse order by distance
+	for (std::map<float, Entity>::reverse_iterator it = transparentEntities.rbegin(); it != transparentEntities.rend(); ++it)
+	{
+		BindTexturedModel(it->second.GetModel());
+		RenderEntity(it->second);
 		UnbindTexturedModel();
 	}
 }
