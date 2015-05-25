@@ -19,10 +19,12 @@ This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channe
 
 [Jamie King](https://www.youtube.com/user/1kingja) also used some of this guys tutorials. For example, the FPS camera.
 
+[http://www.learnopengl.com/](http://www.learnopengl.com/) another amazing resource.
+
 ### Current Screenshot ###
 ![current screenshot](https://github.com/iZastic/OpenGL_3D_Game_Tutorial/blob/master/current.png)
 
-### System Specifications ###
+### System 1 Specifications ###
           System: Samsung 7 series laptop
               OS: Windows 8.1 Pro x64
        Processor: Intel Core i7-2675QM 2.20GHz Quad Core
@@ -30,3 +32,12 @@ This is the [ThinMatrix](https://www.youtube.com/user/ThinMatrix) youtube channe
              HDD: Crucial CT512MX100 SSD
       Graphics 1: Intel HD 3000
       Graphics 2: ATI Radeon HD 6470M
+
+### System 2 Specifications ###
+          System: Custom PC build
+              OS: Windows 8.1 Pro x64
+       Processor: AMD Phenom II x4 955 3.20Ghz
+             RAM: 20 GB (1600Mhz)
+            HDD1: Seagate 360GB 7200rpm
+            HDD2: WD WD10EADS 1TB
+      Graphics 1: Nvidia GTX 560ti 1GB
